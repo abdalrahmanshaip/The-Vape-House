@@ -140,7 +140,7 @@ const AddLiquidPage = () => {
             />
             <Select onValueChange={(e) => setLine(e)}>
               <SelectTrigger>
-                <SelectValue placeholder='Select Nicotine Type' />
+                <SelectValue placeholder='Select line liquid' />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>

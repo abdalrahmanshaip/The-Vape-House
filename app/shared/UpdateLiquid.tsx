@@ -182,7 +182,7 @@ const UpdateLiquid = ({ data }: { data: TypeLiquid }) => {
                     placeholder='Quantity'
                     name='quantity'
                     defaultValue={variation.quantity}
-                    onChange={handleInputChange}
+                    onChange={(e) => handleVariationChange(index, e)}
                     required
                   />
                 </div>
