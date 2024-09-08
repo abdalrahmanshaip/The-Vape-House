@@ -1,12 +1,8 @@
 'use client'
-
-import { createLiquid } from '@/_actions/liquidAtion' // Replace with actual action
-import { Button } from '@/components/ui/button'
+import { TypeLiquid } from '@/Types'
+import React, { useState } from 'react'
 import { Input } from '@/components/ui/input'
-import Link from 'next/link'
-import { useFormState, useFormStatus } from 'react-dom'
-import { toast } from 'sonner'
-import { useState } from 'react'
+import { Button } from '@/components/ui/button'
 import {
   Select,
   SelectContent,
@@ -16,65 +12,30 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { updateLiquid } from '@/_actions/liquidAtion'
+import { toast } from 'sonner'
+import Image from 'next/image'
+import { useFormStatus } from 'react-dom'
 import { linesEgyptVape } from '@/utils'
 
-const initialstate = {
-  status: 0,
-  message: '',
-}
-
-const SubmitButton = () => {
+const UpdateLiquid = ({ data }: { data: TypeLiquid }) => {
+  const [line, setLine] = useState<string>(data.line || '')
   const { pending } = useFormStatus()
-  return (
-    <Button
-      className='col-span-3'
-      type='submit'
-      disabled={pending}
-    >
-      {pending ? 'Creating...' : 'Create'}
-    </Button>
-  )
-}
-
-const AddLiquidPage = () => {
-  const [line, setLine] = useState<string>('')
-  const [state, formAction] = useFormState(createLiquid, initialstate)
-  const [variations, setVariations] = useState([
-    { size: '', nicotineType: '', quantity: '', nicotine: '', price: '' },
-  ])
-  const [errors, setErrors] = useState(false) // To handle validation errors
-
-  // Handle adding a new variation
-  const addVariation = () => {
-    // Ensure the last variation is filled before adding a new one
-    if (
-      variations.some(
-        (v) =>
-          !v.size || !v.nicotineType || !v.quantity || !v.nicotine || !v.price
-      )
-    ) {
-      setErrors(true)
-      return
-    }
-    setErrors(false)
-    setVariations([
-      ...variations,
+  const [formState, setFormState] = useState({
+    productName: data.productName || '',
+    variations: data.variations || [
       { size: '', nicotineType: '', quantity: '', nicotine: '', price: '' },
-    ])
-  }
+    ],
+    img: data.img || '',
+  })
 
-  // Handle removing a variation
-  const removeVariation = (index: number) => {
-    const updatedVariations = variations.filter((_, i) => i !== index)
-    setVariations(updatedVariations)
-  }
-
+  const imgSrc = `data:${formState.img.contentType};base64,${formState.img.data}`
   // Handle changing variation input
   const handleVariationChange = (
     index: number,
     e: React.ChangeEvent<HTMLInputElement> | string
   ) => {
-    const updatedVariations = [...variations]
+    const updatedVariations = [...formState.variations]
     if (typeof e === 'string') {
       updatedVariations[index] = {
         ...updatedVariations[index],
@@ -84,53 +45,51 @@ const AddLiquidPage = () => {
       const { name, value } = e.target
       updatedVariations[index] = { ...updatedVariations[index], [name]: value }
     }
-    setVariations(updatedVariations)
+    setFormState({ ...formState, variations: updatedVariations })
+  }
+
+  // Handle general form input change
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setFormState({ ...formState, [name]: value })
   }
 
   // Handle form submission
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    // Check if variations are valid (none should be empty)
-    if (
-      variations.some(
-        (v) => !v.size || !v.nicotineType || !v.nicotine || !v.price
-      )
-    ) {
-      setErrors(true)
-      toast.error('Please fill all the variation fields.')
-      return
+    const formData = new FormData(e.currentTarget)
+    formData.append('variations', JSON.stringify(formState.variations))
+    formData.append('_id', data._id)
+    formData.append('line', line)
+    if (e.currentTarget.img.files.length > 0) {
+      formData.append('img', e.currentTarget.img.files[0])
     }
 
-    const formData = new FormData(e.currentTarget)
-    formData.set('variations', JSON.stringify(variations))
+    const response = await updateLiquid(formData)
 
-    await formAction(formData)
-  }
-
-  if (state.status === 201) {
-    toast.success(state.message)
-  } else if (state.status === 400) {
-    toast.error(state.message)
+    if (response.status === 200) {
+      toast.success(response.message)
+    } else {
+      toast.error(response.message)
+    }
   }
 
   return (
     <div className='space-y-10'>
-      <Button asChild>
-        <Link href={'/admin/e-liquid'}>Back</Link>
-      </Button>
-      <h1 className='text-3xl'>Add Liquid</h1>
+      <h1 className='text-3xl'>Update Liquid</h1>
       <div className='form'>
         <form onSubmit={handleFormSubmit}>
-          <div className='grid lg:grid-cols-3 gap-5 '>
+          <div className='grid lg:grid-cols-3 gap-5'>
             <Input
               type='text'
               placeholder='Product Name'
               name='productName'
+              value={formState.productName}
+              onChange={handleInputChange}
               required
               className='col-span-3'
             />
-
             <Input
               type='file'
               placeholder='Image'
@@ -138,13 +97,16 @@ const AddLiquidPage = () => {
               name='img'
               required
             />
-            <Select onValueChange={(e) => setLine(e)}>
+            <Select
+              onValueChange={(value) => setLine(value)} // Handle line selection
+              value={line} // Set the initial value to the selected line
+            >
               <SelectTrigger>
-                <SelectValue placeholder='Select Nicotine Type' />
+                <SelectValue placeholder='Select Line' />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectLabel>line</SelectLabel>
+                  <SelectLabel>Line</SelectLabel>
                   {linesEgyptVape.map((item) => (
                     <SelectItem
                       key={item.name}
@@ -155,16 +117,18 @@ const AddLiquidPage = () => {
                   ))}
                 </SelectGroup>
               </SelectContent>
-              <Input
-                value={line}
-                name='line'
-                type='hidden'
-              />
             </Select>
+            <Image
+              src={imgSrc}
+              alt={formState.productName}
+              width={80}
+              height={80}
+            />
+
             {/* Variations */}
             <div className='col-span-3'>
               <h3 className='text-xl mb-2'>Variations</h3>
-              {variations.map((variation, index) => (
+              {formState.variations.map((variation, index) => (
                 <div
                   key={index}
                   className='grid grid-cols-3 gap-3 mb-4'
@@ -195,6 +159,7 @@ const AddLiquidPage = () => {
                       </SelectGroup>
                     </SelectContent>
                   </Select>
+
                   <Input
                     type='text'
                     placeholder='Nicotine Level'
@@ -213,37 +178,23 @@ const AddLiquidPage = () => {
                     step='any'
                   />
                   <Input
-                    type='text'
+                    type='number'
                     placeholder='Quantity'
                     name='quantity'
-                    value={variation.quantity}
-                    onChange={(e) => handleVariationChange(index, e)}
+                    defaultValue={variation.quantity}
+                    onChange={handleInputChange}
                     required
                   />
-                  <Button
-                    type='button'
-                    onClick={() => removeVariation(index)}
-                    className='col-span-3 text-red-300'
-                  >
-                    Remove Variation
-                  </Button>
                 </div>
               ))}
-              <Button
-                type='button'
-                onClick={addVariation}
-                className='mb-4'
-              >
-                Add Variation
-              </Button>
-              {errors && (
-                <p className='text-red-500'>
-                  Please fill out all fields before adding another variation.
-                </p>
-              )}
             </div>
-
-            <SubmitButton />
+            <Button
+              type='submit'
+              className='col-span-3'
+              disabled={pending}
+            >
+              Update {pending && '...'}
+            </Button>
           </div>
         </form>
       </div>
@@ -251,4 +202,4 @@ const AddLiquidPage = () => {
   )
 }
 
-export default AddLiquidPage
+export default UpdateLiquid

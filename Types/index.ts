@@ -40,8 +40,8 @@ export interface TypeLiquid {
   _id: string
   productName: string
   img: Img
-
-  variations: [TypeVariation]
+  line: string
+  variations: TypeVariation[]
   __v: number
 }
 

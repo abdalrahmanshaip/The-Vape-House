@@ -78,7 +78,8 @@ export async function createLiquid(
       data: Buffer.from(await (formData.get('img') as File)!.arrayBuffer()),
       contentType: (formData.get('img') as File).type || 'image/jpeg',
     },
-    variations: JSON.parse(formData.get('variations') as string), // Expecting an array of variations passed as JSON string
+    variations: JSON.parse(formData.get('variations') as string),
+    line: formData.get('line'),
   }
 
   try {
@@ -104,6 +105,7 @@ export async function updateLiquid(formData: FormData) {
       contentType: (formData.get('img') as File).type || 'image/jpeg',
     },
     variations: JSON.parse(formData.get('variations') as string),
+    line: formData.get('line'),
   }
 
   try {
@@ -119,7 +121,10 @@ export async function updateLiquid(formData: FormData) {
   }
 }
 
-export async function deleteLiquid(formData: FormData) {
+export async function deleteLiquid(
+  state: { status: number; message: string },
+  formData: FormData
+) {
   const liquidId = formData.get('_id') as string
 
   try {

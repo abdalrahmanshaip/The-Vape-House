@@ -1,6 +1,6 @@
 import { getAllLiquids } from '@/_actions/liquidAtion'
 import AdminDashboard from '@/app/shared/AdminDashboard'
-import DeleteMod from '@/app/shared/DeleteMod'
+import DeleteLiquid from '@/app/shared/DeleteLiquid'
 import { Button } from '@/components/ui/button'
 import {
   Pagination,
@@ -43,6 +43,7 @@ const LiquidAdminPage = async ({
               <TableHead>Liquid Name</TableHead>
               <TableHead>Size, Nic, Price</TableHead>
               <TableHead>picture</TableHead>
+              <TableHead>Line</TableHead>
               <TableHead className='text-center'>Action</TableHead>
             </TableRow>
           </TableHeader>
@@ -57,7 +58,11 @@ const LiquidAdminPage = async ({
                       {liquid.variations.map(
                         (variation: TypeVariation, index) => {
                           return (
-                            <Button key={index} variant={'ghost'} className='w-fit flex flex-col'>
+                            <Button
+                              key={index}
+                              variant={'ghost'}
+                              className='w-fit flex flex-col'
+                            >
                               <p key={index}>
                                 {variation.size} ML - {variation.nicotineType}{' '}
                                 {variation.nicotine} Nic $ {variation.price} ,{' '}
@@ -76,8 +81,9 @@ const LiquidAdminPage = async ({
                         height='80'
                       />
                     </TableCell>
+                    <TableHead>{liquid.line}</TableHead>
                     <TableCell className='text-center'>
-                      <DeleteMod _id={liquid._id} />
+                      <DeleteLiquid _id={liquid._id} />
                       <Button
                         asChild
                         variant={'ghost'}
