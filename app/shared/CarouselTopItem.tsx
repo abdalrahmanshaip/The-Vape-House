@@ -33,6 +33,7 @@ const CarouselTopItem = async () => {
                 <Card>
                   <CardContent className='flex flex-col  items-center justify-center p-0'>
                     <Image
+                    className='w-full h-52 object-contain'
                       src={imgSrc}
                       alt={item.productName}
                       width={400} // You can adjust the width and height as needed
@@ -41,10 +42,10 @@ const CarouselTopItem = async () => {
                   </CardContent>
                 </Card>
                 <div className='title mt-2'>
-                  <p className='text-start text-xl capitalize'>
+                  <p className='text-start  capitalize'>
                     {item.productName}
                   </p>
-                  <p className='text-start text-xl'>LE {item.price}</p>
+                  <p className='text-start font-bold'>LE {item.price}.00</p>
                 </div>
               </div>
             </CarouselItem>

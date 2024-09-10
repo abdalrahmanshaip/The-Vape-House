@@ -17,7 +17,7 @@ const Category = () => {
           return (
             <Link
               key={category.label}
-              href={category.path}
+              href={`/collections/${category.path}`}
               className='hover:border-b-2 h-7'
             >
               {category.label}
