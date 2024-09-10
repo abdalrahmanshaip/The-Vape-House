@@ -34,7 +34,7 @@ const layout = ({ children }: { children: ReactNode }) => {
                   <Link
                     key={category.label}
                     href={`/admin/${category.path}`}
-                    className='hover:border-b-2 '
+                    className='hover:border-b-2 block'
                   >
                     {index + 1}- {category.label}
                   </Link>
