@@ -34,7 +34,7 @@ const layout = ({ children }: { children: ReactNode }) => {
                   <Link
                     key={category.label}
                     href={`/admin/${category.path}`}
-                    className='hover:border-b-2 block'
+                    className='hover:border-b-2 '
                   >
                     {index + 1}- {category.label}
                   </Link>
@@ -52,7 +52,7 @@ const layout = ({ children }: { children: ReactNode }) => {
                 <Link
                   key={category.label}
                   href={`/admin/${category.path}`}
-                  className='hover:border-b-2 border-black block'
+                  className='hover:border-b-2 border-black block h-7'
                 >
                   {index + 1}- {category.label}
                 </Link>

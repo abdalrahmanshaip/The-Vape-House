@@ -53,6 +53,15 @@ export interface TypeVariation {
   quantity: number
 }
 
+export interface TypeCoildsCartidge {
+  _id: string
+  productName: string
+  img: Img
+  price: number
+  quantity: number
+  resistance: string
+}
+
 export interface Img {
   data: string
   contentType: string

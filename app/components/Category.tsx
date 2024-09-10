@@ -18,7 +18,7 @@ const Category = () => {
             <Link
               key={category.label}
               href={category.path}
-              className='hover:border-b-2'
+              className='hover:border-b-2 h-7 '
             >
               {category.label}
             </Link>
