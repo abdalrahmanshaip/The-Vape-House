@@ -36,7 +36,7 @@ const Dropdown = () => {
             {categorys.map((category) => {
               return (
                 <Link
-                  href={category.path}
+                  href={`/collections/${category.path}`}
                   key={category.label}
                 >
                   <DropdownMenuItem>{category.label}</DropdownMenuItem>
