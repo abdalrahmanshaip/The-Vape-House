@@ -14,28 +14,50 @@ import {
 import { TypeDispo } from '@/Types'
 import Image from 'next/image'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 
 const DisposablePage = async ({
   searchParams,
 }: {
-  searchParams: { page: string; limit: string }
+  searchParams: { page?: string; limit?: string; search?: string }
 }) => {
-  let page = parseInt(searchParams.page) || 1
-  let limit = parseInt(searchParams.limit) || 10
+  let page = parseInt(searchParams.page || '1') || 1
+  let limit = parseInt(searchParams.limit || '10') || 10
+  let search = searchParams.search || ''
+
   page = !page || page < 1 ? 1 : page
-  const { data } = await getAllDesposable(limit, page)
+  limit = !limit || limit < 1 ? 10 : limit
+
+  const { data } = await getAllDesposable(limit, page, search)
+  const handleSearch = async (formData: FormData) => {
+    'use server'
+    const searchQuery = formData.get('search')?.toString().trim() || ''
+    const url = `?search=${searchQuery}`
+    return redirect(url)
+  }
+
   return (
-    <main className='my-20 space-y-10 '>
+    <main className='my-20 space-y-10'>
       <h1 className='text-2xl font-bold border-b-2 pb-4'>Disposable</h1>
+
       <div className='filtration flex flex-wrap justify-between'>
-        <Input
-          placeholder='Search'
-          className='basis-full mb-5 md:basis-1/2'
-        />
+        <form
+          className='basis-full mb-5 md:basis-1/2 flex relative'
+          action={handleSearch}
+          method='POST'
+        >
+          <Input
+            name='search'
+            placeholder='Search'
+            className='w-full'
+            defaultValue={searchParams.search || ''}
+          />
+          <Button type='submit' className='absolute right-0'>Search</Button>
+        </form>
         <div className='select flex gap-x-5'>
           <SelectItemPerPage />
           <Select>
-            <SelectTrigger >
+            <SelectTrigger>
               <SelectValue placeholder='Sort by' />
             </SelectTrigger>
             <SelectContent>
@@ -50,6 +72,7 @@ const DisposablePage = async ({
           </Select>
         </div>
       </div>
+
       <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 '>
         {data?.disposables.map((disposable: TypeDispo) => {
           const imgSrc = `data:${disposable.img.contentType};base64,${disposable.img.data}`
@@ -61,8 +84,8 @@ const DisposablePage = async ({
                     className='w-full h-52 object-contain'
                     src={imgSrc}
                     alt={disposable.productName}
-                    width={'100'}
-                    height={'100'}
+                    width={100}
+                    height={100}
                   />
                 </div>
                 <h2 className=' mt-4 my-4'>{disposable.productName}</h2>

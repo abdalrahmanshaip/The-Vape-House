@@ -4,11 +4,19 @@ import connectDB from '@/config/database'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 
-export async function getAllDesposable(limit?: number, page?: number) {
+export async function getAllDesposable(
+  limit?: number,
+  page?: number,
+  productName?: string
+) {
   try {
+    
     await connectDB()
+    const searchQuery = productName
+      ? { productName: { $regex: productName, $options: 'i' } }
+      : {}
     const disposables = await disposableModel
-      .find({}, { __v: false })
+      .find(searchQuery, { __v: false })
       .limit(limit!)
       .skip(limit! * (page! - 1))
     const disposablesWithBase64 = disposables.map((disposable) => ({

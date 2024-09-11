@@ -24,7 +24,7 @@ const SubmitButton = () => {
       type='submit'
       disabled={pending}
     >
-      {pending ? 'Creating...' : 'Create'}
+      {pending ? 'Updateing...' : 'Update'}
     </Button>
   )
 }

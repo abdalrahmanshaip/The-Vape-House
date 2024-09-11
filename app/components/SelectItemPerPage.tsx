@@ -23,7 +23,7 @@ const SelectItemPerPage = () => {
 
   return (
     <Select onValueChange={(value) => setLimit(value)}>
-      <SelectTrigger>
+      <SelectTrigger className='w-[250px]'>
         <SelectValue placeholder='Items per page' />
       </SelectTrigger>
       <SelectContent>
