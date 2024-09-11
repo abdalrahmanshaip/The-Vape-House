@@ -13,26 +13,27 @@ import {
 } from '@/components/ui/select'
 import { TypeDispo } from '@/Types'
 import Image from 'next/image'
-import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
 const DisposablePage = async ({
   searchParams,
 }: {
-  searchParams: { page?: string; limit?: string; search?: string }
+  searchParams: { page?: string; limit?: string; search?: string; sort: string }
 }) => {
   let page = parseInt(searchParams.page || '1') || 1
   let limit = parseInt(searchParams.limit || '10') || 10
   let search = searchParams.search || ''
+  const sort = searchParams.sort || ''
 
   page = !page || page < 1 ? 1 : page
   limit = !limit || limit < 1 ? 10 : limit
 
-  const { data } = await getAllDesposable(limit, page, search)
+  const { data } = await getAllDesposable(limit, page, search, sort)
   const handleSearch = async (formData: FormData) => {
     'use server'
     const searchQuery = formData.get('search')?.toString().trim() || ''
-    const url = `?search=${searchQuery}`
+    const sortOption = formData.get('sort')?.toString() || 'price_asc'
+    const url = `?search=${searchQuery}&sort=${sortOption}`
     return redirect(url)
   }
 
@@ -52,24 +53,16 @@ const DisposablePage = async ({
             className='w-full'
             defaultValue={searchParams.search || ''}
           />
-          <Button type='submit' className='absolute right-0'>Search</Button>
+          <Button
+            type='submit'
+            className='absolute right-0'
+          >
+            Search
+          </Button>
         </form>
         <div className='select flex gap-x-5'>
           <SelectItemPerPage />
-          <Select>
-            <SelectTrigger>
-              <SelectValue placeholder='Sort by' />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectItem value='apple'>Apple</SelectItem>
-                <SelectItem value='banana'>Banana</SelectItem>
-                <SelectItem value='blueberry'>Blueberry</SelectItem>
-                <SelectItem value='grapes'>Grapes</SelectItem>
-                <SelectItem value='pineapple'>Pineapple</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+          
         </div>
       </div>
 

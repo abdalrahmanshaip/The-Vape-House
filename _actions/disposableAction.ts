@@ -7,18 +7,27 @@ import { redirect } from 'next/navigation'
 export async function getAllDesposable(
   limit?: number,
   page?: number,
-  productName?: string
+  productName?: string,
+  sort?: string
 ) {
   try {
-    
     await connectDB()
     const searchQuery = productName
       ? { productName: { $regex: productName, $options: 'i' } }
       : {}
+
+    let sortOption = {}
+    if (sort === 'price_asc') {
+      sortOption = { price: 1 } // Ascending order
+    } else if (sort === 'price_desc') {
+      sortOption = { price: -1 } // Descending order
+    }
+
     const disposables = await disposableModel
       .find(searchQuery, { __v: false })
       .limit(limit!)
       .skip(limit! * (page! - 1))
+      .sort(sortOption)
     const disposablesWithBase64 = disposables.map((disposable) => ({
       ...disposable.toObject(),
 
