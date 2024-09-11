@@ -3,13 +3,30 @@ import connectDB from '@/config/database'
 import PodSystemModel from '@/models/podSystemModel'
 import { revalidatePath } from 'next/cache'
 
-export async function getAllPodSystems(limit: number, page: number) {
+export async function getAllPodSystems(
+  limit?: number,
+  page?: number,
+  productName?: string,
+  sort?: string
+) {
   try {
     await connectDB()
-    const podSystem = await PodSystemModel.find({}, { __v: false })
-      .limit(limit)
-      .skip(limit * (page - 1))
+    const searchQuery = productName
+      ? { productName: { $regex: productName, $options: 'i' } }
+      : {}
 
+    let sortOption = {}
+    if (sort === 'price_asc') {
+      sortOption = { price: 1 }
+    } else if (sort === 'price_desc') {
+      sortOption = { price: -1 }
+    }
+    const podSystem = await PodSystemModel
+      .find(searchQuery, { __v: false })
+      .limit(limit!)
+      .skip(limit! * (page! - 1))
+      .sort(sortOption)
+      
     const PodSystemWithBase64 = podSystem.map((podSystem) => ({
       ...podSystem.toObject(),
       img: {

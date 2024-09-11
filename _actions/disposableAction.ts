@@ -15,12 +15,12 @@ export async function getAllDesposable(
     const searchQuery = productName
       ? { productName: { $regex: productName, $options: 'i' } }
       : {}
-
+      
     let sortOption = {}
     if (sort === 'price_asc') {
-      sortOption = { price: 1 } // Ascending order
+      sortOption = { price: 1 }
     } else if (sort === 'price_desc') {
-      sortOption = { price: -1 } // Descending order
+      sortOption = { price: -1 }
     }
 
     const disposables = await disposableModel

@@ -1,11 +1,11 @@
-import { getAllDesposable } from '@/_actions/disposableAction'
+import { getAllTanks } from '@/_actions/tanksAction'
 import UserDashboard from '@/app/shared/UserDashboard'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
-import { TypeDispo } from '@/Types'
+import { TypeTanks } from '@/Types'
 import Image from 'next/image'
 
-const DisposablePage = async ({
+const TanksPage = async ({
   searchParams,
 }: {
   searchParams: { page?: string; limit?: string; search?: string; sort: string }
@@ -18,28 +18,27 @@ const DisposablePage = async ({
   page = !page || page < 1 ? 1 : page
   limit = !limit || limit < 1 ? 10 : limit
 
-  const { data } = await getAllDesposable(limit, page, search, sort)
+  const { data } = await getAllTanks(limit, page, search, sort)
 
   return (
-    <UserDashboard PageTitle='Disposable'>
-      {data?.disposables.length > 0 ? (
-        data?.disposables.map((disposable: TypeDispo) => {
-          const imgSrc = `data:${disposable.img.contentType};base64,${disposable.img.data}`
+    <UserDashboard PageTitle='Tanks'>
+      {data?.tanks.length > 0 ? (
+        data?.tanks.map((tank: TypeTanks) => {
+          const imgSrc = `data:${tank.img.contentType};base64,${tank.img.data}`
           return (
-            <Card key={disposable._id}>
+            <Card key={tank._id}>
               <CardContent>
                 <div>
                   <Image
                     className='w-full h-52 object-contain'
                     src={imgSrc}
-                    alt={disposable.productName}
+                    alt={tank.productName}
                     width={100}
                     height={100}
                   />
                 </div>
-                <h2 className=' mt-4 my-4'>{disposable.productName}</h2>
-                <span className='font-bold '>LE {disposable.price}.00</span>
-
+                <h2 className=' mt-4 my-4'>{tank.productName}</h2>
+                <span className='font-bold '>LE {tank.price}.00</span>
               </CardContent>
               <CardFooter className='ease-linear duration-300'>
                 <Button
@@ -54,12 +53,10 @@ const DisposablePage = async ({
           )
         })
       ) : (
-        <div className='col-span-4 text-center text-2xl'>
-          No Disposable available
-        </div>
+        <div className='col-span-4 text-center text-2xl'> No Tanks available</div>
       )}
     </UserDashboard>
   )
 }
 
-export default DisposablePage
+export default TanksPage

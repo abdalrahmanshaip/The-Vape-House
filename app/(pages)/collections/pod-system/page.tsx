@@ -1,11 +1,11 @@
-import { getAllDesposable } from '@/_actions/disposableAction'
+import { getAllPodSystems } from '@/_actions/podSystemAction'
 import UserDashboard from '@/app/shared/UserDashboard'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
-import { TypeDispo } from '@/Types'
+import { TypePodSystem } from '@/Types'
 import Image from 'next/image'
 
-const DisposablePage = async ({
+const PodSystemPage = async ({
   searchParams,
 }: {
   searchParams: { page?: string; limit?: string; search?: string; sort: string }
@@ -18,28 +18,36 @@ const DisposablePage = async ({
   page = !page || page < 1 ? 1 : page
   limit = !limit || limit < 1 ? 10 : limit
 
-  const { data } = await getAllDesposable(limit, page, search, sort)
+  const { data } = await getAllPodSystems(limit, page, search, sort)
 
   return (
-    <UserDashboard PageTitle='Disposable'>
-      {data?.disposables.length > 0 ? (
-        data?.disposables.map((disposable: TypeDispo) => {
-          const imgSrc = `data:${disposable.img.contentType};base64,${disposable.img.data}`
+    <UserDashboard PageTitle='Pod system'>
+      {data?.podSystem.length > 0 ? (
+        data?.podSystem.map((pod: TypePodSystem) => {
+          const colors = pod.colors.split(',')
+          console.log(colors)
+          const imgSrc = `data:${pod.img.contentType};base64,${pod.img.data}`
           return (
-            <Card key={disposable._id}>
+            <Card key={pod._id}>
               <CardContent>
                 <div>
                   <Image
                     className='w-full h-52 object-contain'
                     src={imgSrc}
-                    alt={disposable.productName}
+                    alt={pod.productName}
                     width={100}
                     height={100}
                   />
                 </div>
-                <h2 className=' mt-4 my-4'>{disposable.productName}</h2>
-                <span className='font-bold '>LE {disposable.price}.00</span>
-
+                <h2 className=' mt-4 my-4'>{pod.productName}</h2>
+                <span className='font-bold '>LE {pod.price}.00</span>
+                <div className='flex gap-x-2 mt-4'>
+                  <div>colors: </div>
+                  {colors.map((color: string, index) => {
+                    console.log(color)
+                    return <p key={index}>{color}</p>
+                  })}
+                </div>
               </CardContent>
               <CardFooter className='ease-linear duration-300'>
                 <Button
@@ -55,11 +63,11 @@ const DisposablePage = async ({
         })
       ) : (
         <div className='col-span-4 text-center text-2xl'>
-          No Disposable available
+          No Pod system available
         </div>
       )}
     </UserDashboard>
   )
 }
 
-export default DisposablePage
+export default PodSystemPage
