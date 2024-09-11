@@ -14,7 +14,6 @@ import { useEffect, useState } from 'react'
 const SelectItemPerPage = () => {
   const router = useRouter()
   const [search, setSearch] = useState<string>('')
-  console.log(search)
   const [limit, setLimit] = useState<string>('')
   const [sort, setSort] = useState<string>('')
 

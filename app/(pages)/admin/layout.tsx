@@ -35,6 +35,7 @@ const layout = ({ children }: { children: ReactNode }) => {
                     key={category.label}
                     href={`/admin/${category.path}`}
                     className='hover:border-b-2 block'
+                    prefetch={true}
                   >
                     {index + 1}- {category.label}
                   </Link>
@@ -53,6 +54,7 @@ const layout = ({ children }: { children: ReactNode }) => {
                   key={category.label}
                   href={`/admin/${category.path}`}
                   className='hover:border-b-2 border-black block h-7'
+                  prefetch={true}
                 >
                   {index + 1}- {category.label}
                 </Link>

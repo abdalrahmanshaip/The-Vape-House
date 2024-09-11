@@ -75,7 +75,7 @@ const Navbar = async () => {
                   </LoginLink>
                 )}
                 {isAdmin?.isGranted && (
-                  <Link href={'/admin/disposable'}>
+                  <Link href={'/admin/disposable'} prefetch={true}>
                     <DropdownMenuItem>Admin Dashboard</DropdownMenuItem>
                   </Link>
                 )}

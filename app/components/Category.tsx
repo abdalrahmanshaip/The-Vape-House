@@ -19,6 +19,7 @@ const Category = () => {
               key={category.label}
               href={`/collections/${category.path}`}
               className='hover:border-b-2 h-7'
+              prefetch={true}
             >
               {category.label}
             </Link>

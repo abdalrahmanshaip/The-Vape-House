@@ -25,7 +25,6 @@ const PodSystemPage = async ({
       {data?.podSystem.length > 0 ? (
         data?.podSystem.map((pod: TypePodSystem) => {
           const colors = pod.colors.split(',')
-          console.log(colors)
           const imgSrc = `data:${pod.img.contentType};base64,${pod.img.data}`
           return (
             <Card key={pod._id}>
@@ -41,10 +40,9 @@ const PodSystemPage = async ({
                 </div>
                 <h2 className=' mt-4 my-4'>{pod.productName}</h2>
                 <span className='font-bold '>LE {pod.price}.00</span>
-                <div className='flex gap-x-2 mt-4'>
+                <div className='flex gap-x-2 mt-2'>
                   <div>colors: </div>
                   {colors.map((color: string, index) => {
-                    console.log(color)
                     return <p key={index}>{color}</p>
                   })}
                 </div>

@@ -4,6 +4,8 @@ import Navbar from './components/Navbar'
 import './globals.css'
 import Category from './components/Category'
 import { Toaster } from 'sonner'
+import { Suspense } from 'react'
+import Loading from './loading'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -24,7 +26,7 @@ export default function RootLayout({
         <Navbar />
         <Category />
         <Toaster />
-        {children}
+        <Suspense fallback={<Loading />}>{children}</Suspense>
       </body>
     </html>
   )
