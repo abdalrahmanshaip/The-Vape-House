@@ -23,6 +23,16 @@ export const linesEgyptVape = [
   { name: 'aurora' },
   { name: 'sprinkles' },
 ]
+export const linesPremiumVape = [
+  { name: 'tokyo' },
+  { name: 'ripe vapes' },
+  { name: 'vgod' },
+  { name: 'jam monster' },
+  { name: 'five pawns' },
+  { name: 'Dr. Vapes'},
+  { name: 'No Hype' },
+  { name: 'Sad Boy' },
+]
 
 export const sizeForFilterLiquid = [
   { size: '15' },

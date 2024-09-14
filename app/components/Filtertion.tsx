@@ -17,24 +17,29 @@ const Filteration = () => {
   const [limit, setLimit] = useState<string>('')
   const [sort, setSort] = useState<string>('')
 
-  const params = useParams<{ tag: string; item: string }>()
-
   useEffect(() => {
-    const params = new URLSearchParams()
+    const currentParams = new URLSearchParams(window.location.search)
+
     if (search.trim()) {
-      params.set('search', search)
+      currentParams.set('search', search)
+    } else {
+      currentParams.delete('search') // Remove if empty
     }
+
     if (limit) {
-      params.set('limit', limit)
+      currentParams.set('limit', limit)
+    } else {
+      currentParams.delete('limit')
     }
+
     if (sort) {
-      params.set('sort', sort)
+      currentParams.set('sort', sort)
+    } else {
+      currentParams.delete('sort')
     }
-    params.get('nicotineType')
-    params.get('size')
-    params.get('nicotine')
-    params.get('line')
-    router.push(`?${params.toString()}`)
+
+    // Push updated query string without removing existing params
+    router.push(`?${currentParams.toString()}`)
   }, [limit, sort, search, router])
 
   return (

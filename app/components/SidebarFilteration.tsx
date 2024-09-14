@@ -17,7 +17,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
-const SidebarFilteration = ({ data }: { data: TypeLiquid[] }) => {
+const SidebarFilteration = ({ lineVape }: { lineVape: { name: string }[] }) => {
   const liquidType = [
     { id: 'mtl', value: 'MTL', label: 'MTL' },
     { id: 'dl', value: 'DL', label: 'DL' },
@@ -30,18 +30,26 @@ const SidebarFilteration = ({ data }: { data: TypeLiquid[] }) => {
   const [line, setLine] = useState('')
 
   useEffect(() => {
-    const params = new URLSearchParams()
+    const params = new URLSearchParams(window.location.search)
     if (nicotineType) {
       params.set('nicotineType', nicotineType)
+    } else {
+      params.delete('nicotineType')
     }
     if (liquidsize.trim()) {
       params.set('size', liquidsize)
+    } else {
+      params.delete('size')
     }
     if (nicotineLevel.trim()) {
       params.set('nicotine', nicotineLevel)
+    } else {
+      params.delete('nicotine')
     }
     if (line.trim()) {
       params.set('line', line)
+    } else {
+      params.delete('line')
     }
     router.push(`?${params.toString()}`)
   }, [nicotineType, liquidsize, nicotineLevel, line, router])
@@ -155,7 +163,7 @@ const SidebarFilteration = ({ data }: { data: TypeLiquid[] }) => {
             <AccordionTrigger>Brand</AccordionTrigger>
             <AccordionContent>
               <div className='max-h-[300px] overflow-y-auto space-y-4'>
-                {linesEgyptVape.map((brand, index) => {
+                {lineVape.map((brand, index) => {
                   return (
                     <div
                       className='flex items-center space-x-2'
@@ -164,6 +172,7 @@ const SidebarFilteration = ({ data }: { data: TypeLiquid[] }) => {
                       <Checkbox
                         id='size'
                         onCheckedChange={() => setLine(brand.name)}
+                        checked={line === brand.name}
                       />
                       <label
                         htmlFor={brand.name}

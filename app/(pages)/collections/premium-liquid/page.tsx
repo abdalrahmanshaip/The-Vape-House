@@ -13,6 +13,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet'
 import { TypeLiquid, TypeVariation } from '@/Types'
+import { linesPremiumVape } from '@/utils'
 import Image from 'next/image'
 import { IoFilterOutline } from 'react-icons/io5'
 
@@ -72,13 +73,13 @@ const PremiumLiquidPage = async ({
             <SheetDescription className='text-start mb-5'>
               Filter Item to get what you want
             </SheetDescription>
-            <SidebarFilteration data={data?.premiumLiquids} />
+            <SidebarFilteration lineVape={linesPremiumVape} />
           </SheetContent>
         </Sheet>
       </div>
       <div className='flex'>
         <div className='h-screen w-[25%] me-10 hidden lg:block'>
-          <SidebarFilteration data={data?.premiumLiquids} />
+          <SidebarFilteration lineVape={linesPremiumVape} />
         </div>
 
         <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 w-full gap-4'>
