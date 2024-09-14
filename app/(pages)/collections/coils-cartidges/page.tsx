@@ -1,3 +1,4 @@
+import { getAllCoilsCartidges } from '@/_actions/coilsCartidgeAction'
 import { getAllDesposable } from '@/_actions/disposableAction'
 import UserDashboard from '@/app/shared/UserLayout'
 import { Button } from '@/components/ui/button'
@@ -5,7 +6,7 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { TypeDispo } from '@/Types'
 import Image from 'next/image'
 
-const DisposablePage = async ({
+const CoilsCartidgesPage = async ({
   searchParams,
 }: {
   searchParams: { page?: string; limit?: string; search?: string; sort: string }
@@ -18,28 +19,30 @@ const DisposablePage = async ({
   page = !page || page < 1 ? 1 : page
   limit = !limit || limit < 1 ? 10 : limit
 
-  const { data } = await getAllDesposable(limit, page, search, sort)
+  const { data } = await getAllCoilsCartidges(limit, page, search, sort)
 
   return (
     <UserDashboard PageTitle='Disposable'>
       <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4'>
-        {data?.disposables.length > 0 ? (
-          data?.disposables.map((disposable: TypeDispo) => {
-            const imgSrc = `data:${disposable.img.contentType};base64,${disposable.img.data}`
+        {data?.coildsCartidges.length > 0 ? (
+          data?.coildsCartidges.map((coildsCartidge: TypeDispo) => {
+            const imgSrc = `data:${coildsCartidge.img.contentType};base64,${coildsCartidge.img.data}`
             return (
-              <Card key={disposable._id}>
+              <Card key={coildsCartidge._id}>
                 <CardContent>
                   <div>
                     <Image
                       className='w-full h-52 object-contain'
                       src={imgSrc}
-                      alt={disposable.productName}
+                      alt={coildsCartidge.productName}
                       width={100}
                       height={100}
                     />
                   </div>
-                  <h2 className=' mt-4 my-4'>{disposable.productName}</h2>
-                  <span className='font-bold '>LE {disposable.price}.00</span>
+                  <h2 className=' mt-4 my-4'>{coildsCartidge.productName}</h2>
+                  <span className='font-bold '>
+                    LE {coildsCartidge.price}.00
+                  </span>
                 </CardContent>
                 <CardFooter className='ease-linear duration-300'>
                   <Button
@@ -63,4 +66,4 @@ const DisposablePage = async ({
   )
 }
 
-export default DisposablePage
+export default CoilsCartidgesPage

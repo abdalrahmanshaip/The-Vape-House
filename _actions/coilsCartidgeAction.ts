@@ -4,13 +4,29 @@ import connectDB from '@/config/database'
 import coilsCartidgeModel from '@/models/coilsCartidgesModel'
 import { revalidatePath } from 'next/cache'
 
-export async function getAllCoilsCartidges(limit?: number, page?: number) {
+export async function getAllCoilsCartidges(
+  limit?: number,
+  page?: number,
+  productName?: string,
+  sort?: string
+) {
   try {
     await connectDB()
+    const searchQuery = productName
+      ? { productName: { $regex: productName, $options: 'i' } }
+      : {}
+
+    let sortOption = {}
+    if (sort === 'price_asc') {
+      sortOption = { price: 1 }
+    } else if (sort === 'price_desc') {
+      sortOption = { price: -1 }
+    }
     const coilsCartidges = await coilsCartidgeModel
-      .find({}, { __v: false })
+      .find(searchQuery, { __v: false })
       .limit(limit!)
       .skip(limit! * (page! - 1))
+      .sort(sortOption)
     const coilsCartidgeWithBase64 = coilsCartidges.map((coilsCartidge) => ({
       ...coilsCartidge.toObject(),
 

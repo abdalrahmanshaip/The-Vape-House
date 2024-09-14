@@ -22,50 +22,49 @@ const PodSystemPage = async ({
 
   return (
     <UserDashboard PageTitle='Pod system'>
-       <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4'>
-
-      {data?.podSystem.length > 0 ? (
-        data?.podSystem.map((pod: TypePodSystem) => {
-          const colors = pod.colors.split(',')
-          const imgSrc = `data:${pod.img.contentType};base64,${pod.img.data}`
-          return (
-            <Card key={pod._id}>
-              <CardContent>
-                <div>
-                  <Image
-                    className='w-full h-52 object-contain'
-                    src={imgSrc}
-                    alt={pod.productName}
-                    width={100}
-                    height={100}
+      <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4'>
+        {data?.podSystem.length > 0 ? (
+          data?.podSystem.map((pod: TypePodSystem) => {
+            const colors = pod.colors.split(',')
+            const imgSrc = `data:${pod.img.contentType};base64,${pod.img.data}`
+            return (
+              <Card key={pod._id}>
+                <CardContent>
+                  <div>
+                    <Image
+                      className='w-full h-52 object-contain'
+                      src={imgSrc}
+                      alt={pod.productName}
+                      width={100}
+                      height={100}
                     />
-                </div>
-                <h2 className=' mt-4 my-4'>{pod.productName}</h2>
-                <span className='font-bold '>LE {pod.price}.00</span>
-                <div className='flex gap-x-2 mt-2'>
-                  <div>colors: </div>
-                  {colors.map((color: string, index) => {
-                    return <p key={index}>{color}</p>
-                  })}
-                </div>
-              </CardContent>
-              <CardFooter className='ease-linear duration-300'>
-                <Button
-                  className='w-full text-black rounded-2xl border-black border mt-4 hover:bg-black hover:text-white ease-linear duration-300 transition'
-                  size='sm'
-                  variant={'ghost'}
+                  </div>
+                  <h2 className=' mt-4 my-4'>{pod.productName}</h2>
+                  <span className='font-bold '>LE {pod.price}.00</span>
+                  <div className='flex gap-x-2 mt-2'>
+                    <div>colors: </div>
+                    {colors.map((color: string, index) => {
+                      return <p key={index}>{color}</p>
+                    })}
+                  </div>
+                </CardContent>
+                <CardFooter className='ease-linear duration-300'>
+                  <Button
+                    className='w-full text-black rounded-2xl border-black border mt-4 hover:bg-black hover:text-white ease-linear duration-300 transition'
+                    size='sm'
+                    variant={'ghost'}
                   >
-                  View Details
-                </Button>
-              </CardFooter>
-            </Card>
-          )
-        })
-      ) : (
-        <div className='col-span-4 text-center text-2xl'>
-          No Pod system available
-        </div>
-      )}
+                    View Details
+                  </Button>
+                </CardFooter>
+              </Card>
+            )
+          })
+        ) : (
+          <div className='col-span-4 text-center text-2xl'>
+            No Pod system available
+          </div>
+        )}
       </div>
     </UserDashboard>
   )
