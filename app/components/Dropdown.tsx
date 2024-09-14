@@ -38,7 +38,6 @@ const Dropdown = () => {
                 <Link
                   href={`/collections/${category.path}`}
                   key={category.label}
-                  prefetch={true}
                 >
                   <DropdownMenuItem>{category.label}</DropdownMenuItem>
                 </Link>

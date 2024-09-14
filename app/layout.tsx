@@ -1,11 +1,9 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { Toaster } from 'sonner'
+import Category from './components/Category'
 import Navbar from './components/Navbar'
 import './globals.css'
-import Category from './components/Category'
-import { Toaster } from 'sonner'
-import { Suspense } from 'react'
-import Loading from './loading'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -26,7 +24,7 @@ export default function RootLayout({
         <Navbar />
         <Category />
         <Toaster />
-        <Suspense fallback={<Loading />}>{children}</Suspense>
+        {children}
       </body>
     </html>
   )

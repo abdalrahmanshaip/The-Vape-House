@@ -3,12 +3,27 @@ import connectDB from '@/config/database'
 import ModModel from '@/models/modModel'
 import { revalidatePath } from 'next/cache'
 
-export async function getAllMod(limit: number, page: number) {
+export async function getAllMod(
+  limit?: number,
+  page?: number,
+  productName?: string,
+  sort?: string
+) {
   try {
     await connectDB()
-    const mods = await ModModel.find({}, { __v: false })
-      .limit(limit)
-      .skip(limit * (page - 1))
+    const searchQuery = productName
+      ? { productName: { $regex: productName, $options: 'i' } }
+      : {}
+      let sortOption = {}
+      if (sort === 'price_asc') {
+        sortOption = { price: 1 }
+      } else if (sort === 'price_desc') {
+        sortOption = { price: -1 }
+      }
+    const mods = await ModModel.find(searchQuery , { __v: false })
+      .limit(limit!)
+      .skip(limit! * (page! - 1))
+      .sort(sortOption)
 
     const modsWithBase64 = mods.map((mod) => ({
       ...mod.toObject(),
@@ -123,7 +138,6 @@ export async function updateMod(
     }
   }
 }
-
 
 export async function deleteMod(
   state: { status: number; message: any },

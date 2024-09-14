@@ -1,5 +1,5 @@
 import { getAllPodSystems } from '@/_actions/podSystemAction'
-import UserDashboard from '@/app/shared/UserDashboard'
+import UserDashboard from '@/app/shared/UserLayout'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { TypePodSystem } from '@/Types'
@@ -22,6 +22,8 @@ const PodSystemPage = async ({
 
   return (
     <UserDashboard PageTitle='Pod system'>
+       <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4'>
+
       {data?.podSystem.length > 0 ? (
         data?.podSystem.map((pod: TypePodSystem) => {
           const colors = pod.colors.split(',')
@@ -36,7 +38,7 @@ const PodSystemPage = async ({
                     alt={pod.productName}
                     width={100}
                     height={100}
-                  />
+                    />
                 </div>
                 <h2 className=' mt-4 my-4'>{pod.productName}</h2>
                 <span className='font-bold '>LE {pod.price}.00</span>
@@ -52,7 +54,7 @@ const PodSystemPage = async ({
                   className='w-full text-black rounded-2xl border-black border mt-4 hover:bg-black hover:text-white ease-linear duration-300 transition'
                   size='sm'
                   variant={'ghost'}
-                >
+                  >
                   View Details
                 </Button>
               </CardFooter>
@@ -64,6 +66,7 @@ const PodSystemPage = async ({
           No Pod system available
         </div>
       )}
+      </div>
     </UserDashboard>
   )
 }

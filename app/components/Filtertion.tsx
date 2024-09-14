@@ -8,14 +8,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
-const SelectItemPerPage = () => {
+const Filteration = () => {
   const router = useRouter()
   const [search, setSearch] = useState<string>('')
   const [limit, setLimit] = useState<string>('')
   const [sort, setSort] = useState<string>('')
+
+  const params = useParams<{ tag: string; item: string }>()
 
   useEffect(() => {
     const params = new URLSearchParams()
@@ -28,11 +30,15 @@ const SelectItemPerPage = () => {
     if (sort) {
       params.set('sort', sort)
     }
+    params.get('nicotineType')
+    params.get('size')
+    params.get('nicotine')
+    params.get('line')
     router.push(`?${params.toString()}`)
   }, [limit, sort, search, router])
 
   return (
-    <div className='filtration flex flex-wrap gap-x-5 justify-between'>
+    <div className='flex flex-wrap gap-x-5 justify-between'>
       <div className='basis-full mb-5 md:basis-1/2 flex relative'>
         <Input
           name='search'
@@ -73,4 +79,4 @@ const SelectItemPerPage = () => {
   )
 }
 
-export default SelectItemPerPage
+export default Filteration

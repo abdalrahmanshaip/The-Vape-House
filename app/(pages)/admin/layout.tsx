@@ -1,17 +1,16 @@
 import { categorys } from '@/app/components/Category'
+import Loading from '@/app/loading'
 import { Button } from '@/components/ui/button'
 import {
   Sheet,
-  SheetClose,
   SheetContent,
   SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
+  SheetTrigger
 } from '@/components/ui/sheet'
 import Link from 'next/link'
-import { ReactNode } from 'react'
+import { ReactNode, Suspense } from 'react'
 
 const layout = ({ children }: { children: ReactNode }) => {
   return (
@@ -35,7 +34,6 @@ const layout = ({ children }: { children: ReactNode }) => {
                     key={category.label}
                     href={`/admin/${category.path}`}
                     className='hover:border-b-2 block'
-                    prefetch={true}
                   >
                     {index + 1}- {category.label}
                   </Link>
@@ -54,7 +52,6 @@ const layout = ({ children }: { children: ReactNode }) => {
                   key={category.label}
                   href={`/admin/${category.path}`}
                   className='hover:border-b-2 border-black block h-7'
-                  prefetch={true}
                 >
                   {index + 1}- {category.label}
                 </Link>
@@ -62,7 +59,9 @@ const layout = ({ children }: { children: ReactNode }) => {
             })}
           </div>
         </div>
-        <div className='container mx-auto mt-5 px-5'>{children}</div>
+        <div className='container mx-auto mt-5 px-5'>
+          <Suspense fallback={<Loading />}>{children}</Suspense>
+        </div>
       </div>
     </div>
   )

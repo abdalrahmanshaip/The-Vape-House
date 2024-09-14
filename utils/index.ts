@@ -23,3 +23,35 @@ export const linesEgyptVape = [
   { name: 'aurora' },
   { name: 'sprinkles' },
 ]
+
+export const sizeForFilterLiquid = [
+  { size: '15' },
+  { size: '30' },
+  { size: '60' },
+  { size: '100' },
+  { size: '120' },
+]
+
+export const nicotineLevelFilterLiquid = [
+  { label: '0' },
+  { label: '2.5' },
+  { label: '3' },
+  { label: '4' },
+  { label: '4.5' },
+  { label: '6' },
+  { label: '7' },
+  { label: '9' },
+  { label: '12' },
+  { label: '15' },
+  { label: '16' },
+  { label: '18' },
+  { label: '24' },
+  { label: '20' },
+  { label: '25' },
+  { label: '28' },
+  { label: '30' },
+  { label: '35' },
+  { label: '40' },
+  { label: '48' },
+  { label: '50' },
+]
