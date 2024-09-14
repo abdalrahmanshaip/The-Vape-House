@@ -40,7 +40,9 @@ export async function getAllPremiumLiquids(
       sortOption = { price: -1 }
     }
 
-    const premiumLiquids = await PremiumLiquidModel.find(searchQuery, { __v: false })
+    const premiumLiquids = await PremiumLiquidModel.find(searchQuery, {
+      __v: false,
+    })
       .limit(limit!)
       .skip(limit! * (page! - 1))
       .sort(sortOption)

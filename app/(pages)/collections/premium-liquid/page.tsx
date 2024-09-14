@@ -56,17 +56,20 @@ const PremiumLiquidPage = async ({
   return (
     <UserLayout PageTitle='Premium Liquid'>
       <div className='lg:hidden -mt-4'>
-        <Sheet >
+        <Sheet>
           <SheetTrigger asChild>
             <Button variant='outline'>
               Filter <IoFilterOutline className='ms-2' />
             </Button>
           </SheetTrigger>
-          <SheetContent side={'left'} className='max-h-[100%] overflow-y-auto '>
+          <SheetContent
+            side={'left'}
+            className='max-h-[100%] overflow-y-auto '
+          >
             <SheetHeader className='text-start'>
               <SheetTitle>Filtertion list</SheetTitle>
             </SheetHeader>
-            <SheetDescription  className='text-start mb-5'>
+            <SheetDescription className='text-start mb-5'>
               Filter Item to get what you want
             </SheetDescription>
             <SidebarFilteration data={data?.premiumLiquids} />
