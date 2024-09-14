@@ -22,7 +22,7 @@ const CoilsCartidgesPage = async ({
   const { data } = await getAllCoilsCartidges(limit, page, search, sort)
 
   return (
-    <UserDashboard PageTitle='Disposable'>
+    <UserDashboard PageTitle='Coils - Cartidges'>
       <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4'>
         {data?.coildsCartidges.length > 0 ? (
           data?.coildsCartidges.map((coildsCartidge: TypeDispo) => {
@@ -58,7 +58,7 @@ const CoilsCartidgesPage = async ({
           })
         ) : (
           <div className='col-span-4 text-center text-2xl'>
-            No Disposable available
+            No coilds or cartidges available
           </div>
         )}
       </div>

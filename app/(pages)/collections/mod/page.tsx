@@ -21,7 +21,7 @@ const ModPage = async ({
   const { data } = await getAllMod(limit, page, search, sort)
 
   return (
-    <UserDashboard PageTitle='Disposable'>
+    <UserDashboard PageTitle='Mod'>
       <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4'>
         {data?.mods.length > 0 ? (
           data?.mods.map((mod: TypeMod) => {
@@ -55,7 +55,7 @@ const ModPage = async ({
           })
         ) : (
           <div className='col-span-4 text-center text-2xl'>
-            No Disposable available
+            No Mod available
           </div>
         )}
       </div>

@@ -1,4 +1,5 @@
 import { getAllLiquids } from '@/_actions/liquidAtion'
+import { getAllPremiumLiquids } from '@/_actions/premiumLiquidAction'
 import SidebarFilteration from '@/app/components/SidebarFilteration'
 import UserLayout from '@/app/shared/UserLayout'
 import { Button } from '@/components/ui/button'
@@ -15,7 +16,7 @@ import { TypeLiquid, TypeVariation } from '@/Types'
 import Image from 'next/image'
 import { IoFilterOutline } from 'react-icons/io5'
 
-const LiquidPage = async ({
+const PremiumLiquidPage = async ({
   searchParams,
 }: {
   searchParams: {
@@ -41,7 +42,7 @@ const LiquidPage = async ({
   page = !page || page < 1 ? 1 : page
   limit = !limit || limit < 1 ? 10 : limit
 
-  const { data } = await getAllLiquids(
+  const { data } = await getAllPremiumLiquids(
     limit,
     page,
     search,
@@ -53,7 +54,7 @@ const LiquidPage = async ({
   )
 
   return (
-    <UserLayout PageTitle='Liquid'>
+    <UserLayout PageTitle='Premium Liquid'>
       <div className='lg:hidden -mt-4'>
         <Sheet >
           <SheetTrigger asChild>
@@ -68,36 +69,36 @@ const LiquidPage = async ({
             <SheetDescription  className='text-start mb-5'>
               Filter Item to get what you want
             </SheetDescription>
-            <SidebarFilteration data={data?.liquids} />
+            <SidebarFilteration data={data?.premiumLiquids} />
           </SheetContent>
         </Sheet>
       </div>
       <div className='flex'>
         <div className='h-screen w-[25%] me-10 hidden lg:block'>
-          <SidebarFilteration data={data?.liquids} />
+          <SidebarFilteration data={data?.premiumLiquids} />
         </div>
 
         <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 w-full gap-4'>
-          {data?.liquids.length > 0 ? (
-            data?.liquids.map((liquid: TypeLiquid) => {
-              const imgSrc = `data:${liquid.img.contentType};base64,${liquid.img.data}`
+          {data?.premiumLiquids.length > 0 ? (
+            data?.premiumLiquids.map((premiumLiquid: TypeLiquid) => {
+              const imgSrc = `data:${premiumLiquid.img.contentType};base64,${premiumLiquid.img.data}`
               return (
-                <Card key={liquid._id}>
+                <Card key={premiumLiquid._id}>
                   <CardContent>
                     <div>
                       <Image
                         className='w-full h-52 object-contain'
                         src={imgSrc}
-                        alt={liquid.productName}
+                        alt={premiumLiquid.productName}
                         width={100}
                         height={100}
                       />
                     </div>
-                    <h2 className=' mt-4 my-4'>{liquid.productName}</h2>
+                    <h2 className=' mt-4 my-4'>{premiumLiquid.productName}</h2>
                     <span className='font-bold '>
                       <span className='text-gray-400 pe-2'>From:</span> LE{' '}
                       {Math.min(
-                        ...liquid?.variations.map(
+                        ...premiumLiquid?.variations.map(
                           (variation: TypeVariation) => variation.price
                         )
                       )}
@@ -118,7 +119,7 @@ const LiquidPage = async ({
             })
           ) : (
             <div className='col-span-4 text-center text-2xl'>
-              No Liquid available
+              No premium liquid available
             </div>
           )}
         </div>
@@ -127,4 +128,4 @@ const LiquidPage = async ({
   )
 }
 
-export default LiquidPage
+export default PremiumLiquidPage

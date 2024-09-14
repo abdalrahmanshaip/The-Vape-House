@@ -4,12 +4,46 @@ import connectDB from '@/config/database'
 import PremiumLiquidModel from '@/models/premiumLiquidModel'
 import { revalidatePath } from 'next/cache'
 
-export async function getAllPremiumLiquids(limit: number, page: number) {
+export async function getAllPremiumLiquids(
+  limit?: number,
+  page?: number,
+  productName?: string,
+  sort?: string,
+  nicotine?: string,
+  nicotineType?: string,
+  size?: string,
+  line?: string
+) {
   try {
     await connectDB()
-    const premiumLiquids = await PremiumLiquidModel.find({}, { __v: false })
-      .limit(limit)
-      .skip(limit * (page - 1))
+    const searchQuery: any = {}
+    if (productName) {
+      searchQuery.productName = { $regex: productName, $options: 'i' }
+    }
+    if (nicotine?.length) {
+      searchQuery['variations.nicotine'] = { $in: nicotine }
+    }
+    if (nicotineType?.length) {
+      searchQuery['variations.nicotineType'] = { $in: nicotineType }
+    }
+    if (line?.length) {
+      searchQuery.line = { $in: line }
+    }
+    if (size?.length) {
+      searchQuery['variations.size'] = { $in: size }
+    }
+
+    let sortOption = {}
+    if (sort === 'price_asc') {
+      sortOption = { price: 1 }
+    } else if (sort === 'price_desc') {
+      sortOption = { price: -1 }
+    }
+
+    const premiumLiquids = await PremiumLiquidModel.find(searchQuery, { __v: false })
+      .limit(limit!)
+      .skip(limit! * (page! - 1))
+      .sort(sortOption)
 
     const premiumLiquidsWithBase64 = premiumLiquids.map((premiumliquid) => ({
       ...premiumliquid.toObject(),
