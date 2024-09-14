@@ -27,6 +27,7 @@ const DisposablePage = async ({
         {data?.disposables.length > 0 ? (
           data?.disposables.map((disposable: TypeDispo) => {
             const imgSrc = `data:${disposable.img.contentType};base64,${disposable.img.data}`
+            const flavors = disposable.flavor.split(',')
             return (
               <Card key={disposable._id}>
                 <CardContent>
@@ -49,8 +50,10 @@ const DisposablePage = async ({
                     variant={'ghost'}
                     asChild
                   >
-                    <Link href={`disposable/${disposable._id}`}>
-                    View Details
+                    <Link
+                      href={`disposable/${disposable._id}/?flavor=${flavors[0]}`}
+                    >
+                      View Details
                     </Link>
                   </Button>
                 </CardFooter>

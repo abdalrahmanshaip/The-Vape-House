@@ -17,8 +17,8 @@ const ViewDetailsDisposable = async ({
   const imgSrc = `data:${dataItem?.data?.img.contentType};base64,${dataItem.data?.img.data}`
   const flavors = dataItem.data?.disposable.flavor.split(',')
   return (
-    <div className='mt-10 mx-32 flex space-x-20'>
-      <div className='left'>
+    <div className='mt-10  justify-center flex gap-x-10 w-full md:flex-row flex-col'>
+      <div className='left w-full flex md:justify-end'>
         <Image
           src={imgSrc}
           alt={dataItem.data?.disposable.productName}
@@ -26,11 +26,11 @@ const ViewDetailsDisposable = async ({
           height={500}
         />
       </div>
-      <div className='right '>
+      <div className='right w-full'>
         <h2 className='text-2xl font-bold'>
           {dataItem.data?.disposable.productName}
         </h2>
-        <p className='text-lg font-bold'>
+        <p className='text-lg font-bold '>
           LE {dataItem.data?.disposable.price}.00
         </p>
         <p className='mt-5 text-sm'>Flavors: {searchParams.flavor}</p>
@@ -52,7 +52,7 @@ const ViewDetailsDisposable = async ({
         </div>
         <div>
           <h3 className='text-sm mt-10 text-muted-foreground'>Quantity:</h3>
-          <Quantity quantityOfItem={dataItem.data?.disposable.quantity}/>
+          <Quantity quantityOfItem={dataItem.data?.disposable} />
         </div>
       </div>
     </div>
