@@ -1,5 +1,4 @@
 import { categorys } from '@/app/components/Category'
-import Loading from '@/app/loading'
 import { Button } from '@/components/ui/button'
 import {
   Sheet,
@@ -10,7 +9,7 @@ import {
   SheetTrigger
 } from '@/components/ui/sheet'
 import Link from 'next/link'
-import { ReactNode, Suspense } from 'react'
+import { ReactNode } from 'react'
 
 const layout = ({ children }: { children: ReactNode }) => {
   return (
@@ -60,7 +59,7 @@ const layout = ({ children }: { children: ReactNode }) => {
           </div>
         </div>
         <div className='container mx-auto mt-5 px-5'>
-          <Suspense fallback={<Loading />}>{children}</Suspense>
+         {children}
         </div>
       </div>
     </div>
