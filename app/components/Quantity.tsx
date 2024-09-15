@@ -28,7 +28,7 @@ const Quantity = ({
     }
   }
 
-  const hadleAddToCart = () => {
+  const handleAddToCart = () => {
     const cart = JSON.parse(localStorage.getItem('cart') || '[]')
     const existingItem = cart.find(
       (item: any) =>
@@ -62,7 +62,9 @@ const Quantity = ({
         </Button>
         <Input
           className='rounded-3xl text-center w-[25%]'
-          defaultValue={quantity}
+          value={quantity}
+          type='text'
+          readOnly
         />
         <Button
           className='absolute hover:bg-transparent right-[75%]'
@@ -77,7 +79,7 @@ const Quantity = ({
       <Button
         variant={'default'}
         className='mt-4 w-full'
-        onClick={hadleAddToCart}
+        onClick={handleAddToCart}
       >
         Add to Cart
       </Button>

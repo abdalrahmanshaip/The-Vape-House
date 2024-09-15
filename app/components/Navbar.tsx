@@ -13,6 +13,7 @@ import Link from 'next/link'
 import { MdOutlineAccountCircle, MdOutlineShoppingCart } from 'react-icons/md'
 import Dropdown from './Dropdown'
 import Image from 'next/image'
+import Cart from './Cart'
 const Navbar = async () => {
   const { isAuthenticated, getUser, getPermission } = getKindeServerSession()
   const isUserAuthenticated = await isAuthenticated()
@@ -30,13 +31,7 @@ const Navbar = async () => {
         <Dropdown />
         <div className='text-2xl text-center lg:-ml-14'>The Vape House</div>
         <div className='flex space-x-5'>
-          <div className='flex items-center'>
-            <MdOutlineShoppingCart
-              size={25}
-              className='text-center'
-            />
-            <p className='hidden lg:block'>Cart</p>
-          </div>
+          <Cart />
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
