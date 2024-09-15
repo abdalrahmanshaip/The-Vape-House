@@ -55,13 +55,13 @@ const ViewDetailsDisposable = async ({
           </div>
           <div>
             <h3 className='text-sm mt-10 text-muted-foreground'>Quantity:</h3>
-            <Quantity quantityOfItem={dataItem.data?.disposable} />
+            <Quantity itemProduct={dataItem.data?.disposable} selectedFlavor={searchParams.flavor}/>
           </div>
         </div>
       </div>
         <div className='Related-Products my-10'>
           <h3 className='border-t text-center font-bold text-xl py-5'>Related Products</h3>
-          <RelatedProducts data={data?.disposables}/>
+          <RelatedProducts data={data?.disposables} url={'disposable'}/>
         </div>
     </div>
   )

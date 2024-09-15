@@ -18,6 +18,7 @@ const Navbar = async () => {
   const isUserAuthenticated = await isAuthenticated()
   const isAdmin = await getPermission('admin')
   const user = await getUser()
+
   return (
     <div className='navbar h-20 bg-muted'>
       <div className='container mx-auto px-5 lg:px-0 flex justify-between lg:justify-between items-center h-full'>
@@ -75,7 +76,10 @@ const Navbar = async () => {
                   </LoginLink>
                 )}
                 {isAdmin?.isGranted && (
-                  <Link href={'/admin/disposable'} prefetch={true}>
+                  <Link
+                    href={'/admin/disposable'}
+                    prefetch={true}
+                  >
                     <DropdownMenuItem>Admin Dashboard</DropdownMenuItem>
                   </Link>
                 )}

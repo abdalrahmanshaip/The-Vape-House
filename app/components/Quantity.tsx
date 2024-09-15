@@ -3,22 +3,51 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { TypeDispo } from '@/Types'
 import { useState } from 'react'
+import { toast } from 'sonner'
 
-const Quantity = ({ quantityOfItem }: { quantityOfItem: TypeDispo }) => {
+const Quantity = ({
+  itemProduct,
+  selectedFlavor,
+}: {
+  itemProduct: TypeDispo
+  selectedFlavor: string
+}) => {
   const [quantity, setQuantity] = useState(1)
-  const [subtotal, setSubtotal] = useState(quantityOfItem.price)
+  const [subtotal, setSubtotal] = useState(itemProduct.price)
 
   const handleDecrement = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1)
-      setSubtotal((prev) => prev - quantityOfItem.price)
+      setSubtotal((prev) => prev - itemProduct.price)
     }
   }
   const handleIncrement = () => {
-    if (quantity < quantityOfItem.quantity) {
+    if (quantity < itemProduct.quantity) {
       setQuantity(quantity + 1)
-      setSubtotal((prev) => prev + quantityOfItem.price)
+      setSubtotal((prev) => prev + itemProduct.price)
     }
+  }
+
+  const hadleAddToCart = () => {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]')
+    const existingItem = cart.find(
+      (item: any) =>
+        item.productId === itemProduct._id && item.flavor === selectedFlavor
+    )
+    if (existingItem) {
+      existingItem.quantity += quantity
+    } else {
+      cart.push({
+        productId: itemProduct._id,
+        quantity,
+        price: itemProduct.price,
+        name: itemProduct.productName,
+        flavor: selectedFlavor,
+        img: itemProduct.img,
+      })
+    }
+    localStorage.setItem('cart', JSON.stringify(cart))
+    toast.success('Added to cart')
   }
 
   return (
@@ -32,14 +61,14 @@ const Quantity = ({ quantityOfItem }: { quantityOfItem: TypeDispo }) => {
           -
         </Button>
         <Input
-          className='rounded-3xl text-center w-[20%]'
-          value={quantity}
+          className='rounded-3xl text-center w-[25%]'
+          defaultValue={quantity}
         />
         <Button
-          className='absolute hover:bg-transparent right-[80%]'
+          className='absolute hover:bg-transparent right-[75%]'
           variant={'ghost'}
           onClick={handleIncrement}
-          disabled={quantity === quantityOfItem.quantity}
+          disabled={quantity === itemProduct.quantity}
         >
           +
         </Button>
@@ -48,6 +77,7 @@ const Quantity = ({ quantityOfItem }: { quantityOfItem: TypeDispo }) => {
       <Button
         variant={'default'}
         className='mt-4 w-full'
+        onClick={hadleAddToCart}
       >
         Add to Cart
       </Button>
