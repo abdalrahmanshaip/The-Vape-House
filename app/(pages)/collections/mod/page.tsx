@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { TypeMod } from '@/Types'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const ModPage = async ({
   searchParams,
@@ -26,6 +27,7 @@ const ModPage = async ({
         {data?.mods.length > 0 ? (
           data?.mods.map((mod: TypeMod) => {
             const imgSrc = `data:${mod.img.contentType};base64,${mod.img.data}`
+            const colors = mod.colors.split(',')
             return (
               <Card key={mod._id}>
                 <CardContent>
@@ -46,8 +48,13 @@ const ModPage = async ({
                     className='w-full text-black rounded-2xl border-black border mt-4 hover:bg-black hover:text-white ease-linear duration-300 transition'
                     size='sm'
                     variant={'ghost'}
+                    asChild
                   >
-                    View Details
+                    <Link
+                      href={`/collections/mod/${mod._id}?color=${colors[0]}`}
+                    >
+                      View Details
+                    </Link>
                   </Button>
                 </CardFooter>
               </Card>
