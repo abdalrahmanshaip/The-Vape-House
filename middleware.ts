@@ -7,7 +7,7 @@ export default async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname
   const isProtectedRoute = path.startsWith('/admin/')
   if (isProtectedRoute && !isAdmin?.isGranted) {
-    return NextResponse.redirect(new URL('/', req.nextUrl))
+    return NextResponse.redirect(new URL('/', req.url))
   }
 }
 export const config = {

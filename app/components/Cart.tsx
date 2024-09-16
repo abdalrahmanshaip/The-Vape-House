@@ -1,5 +1,6 @@
 'use client'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import {
   Sheet,
   SheetContent,
@@ -8,27 +9,13 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet'
-import { linesEgyptVape } from '@/utils'
-import React, { useEffect, useState } from 'react'
+import Image from 'next/image'
+import { useEffect, useState } from 'react'
 import { MdOutlineShoppingCart } from 'react-icons/md'
-import SidebarFilteration from './SidebarFilteration'
 
 const Cart = () => {
-  // const [cart, setCart] = useState<any[]>([])
-  // useEffect(() => {
-  //   if (typeof window !== 'undefined') {
-  //     const savedValue = window.localStorage.getItem('cart')
-  //     if (savedValue) {
-  //       setCart(JSON.parse(savedValue))
-  //     }
-  //   }
-  // }, [])
-  // useEffect(() => {
-  //   if (typeof window !== 'undefined' && cart.length > 0) {
-  //     window.localStorage.setItem('cart', JSON.stringify(cart))
-  //   }
-  // }, [cart])
-  const cart = JSON.parse(localStorage.getItem('cart') || '[]')
+  const cart = JSON.parse(JSON.stringify(localStorage.getItem('cart'))) || []
+
   return (
     <div className='flex items-center'>
       <Sheet>
@@ -38,9 +25,7 @@ const Cart = () => {
               size={25}
               className='text-center'
             />
-            <p className='hidden lg:block'>
-              Cart {cart.length > 0 && cart.length}
-            </p>
+            <p className='hidden lg:block'>Cart</p>
           </Button>
         </SheetTrigger>
         <SheetContent
@@ -48,12 +33,68 @@ const Cart = () => {
           className='max-h-[100%] overflow-y-auto '
         >
           <SheetHeader className='text-start'>
-            <SheetTitle>Filtertion list</SheetTitle>
+            <SheetTitle>Shopping Cart</SheetTitle>
           </SheetHeader>
           <SheetDescription className='text-start mb-5'>
-            Filter Item to get what you want
+            {cart.length > 0 && cart.length} items
           </SheetDescription>
-          <SidebarFilteration lineVape={linesEgyptVape} />
+          <div className='space-y-5'>
+            {cart.length > 0
+              ? cart.map((cartItem: any) => {
+                  const imgSrc = `cart:${cartItem?.img.contentType};base64,${cartItem.img.cart}`
+                  return (
+                    <div
+                      key={cartItem.productId}
+                      className='border-b pb-4'
+                    >
+                      <div className='flex'>
+                        <div className='img'>
+                          <Image
+                            src={imgSrc}
+                            alt={cartItem.name}
+                            width={100}
+                            height={100}
+                          />
+                        </div>
+                        <div className='details space-y-3 ms-4'>
+                          <p>{cartItem.name}</p>
+                          <p>{cartItem.flavor}</p>
+                          <p>LE{cartItem.price}.00</p>
+                        </div>
+                      </div>
+                      <div className='flex justify-between items-center mt-2'>
+                        <div className='relative'>
+                          <Button
+                            className='absolute hover:bg-transparent left-0'
+                            variant={'ghost'}
+                          >
+                            -
+                          </Button>
+                          <Input
+                            className='rounded-3xl text-center w-[50%]'
+                            type='text'
+                            readOnly
+                            value={cartItem.quantity}
+                          />
+                          <Button
+                            className='absolute hover:bg-transparent right-[50%] top-0'
+                            variant={'ghost'}
+                          >
+                            +
+                          </Button>
+                        </div>
+                        <Button
+                          className='text-2xl '
+                          variant={'ghost'}
+                        >
+                          x
+                        </Button>
+                      </div>
+                    </div>
+                  )
+                })
+              : 'No cart available'}
+          </div>
         </SheetContent>
       </Sheet>
     </div>
