@@ -15,6 +15,7 @@ import {
 import { TypeLiquid, TypeVariation } from '@/Types'
 import { linesPremiumVape } from '@/utils'
 import Image from 'next/image'
+import Link from 'next/link'
 import { IoFilterOutline } from 'react-icons/io5'
 
 const PremiumLiquidPage = async ({
@@ -114,8 +115,13 @@ const PremiumLiquidPage = async ({
                       className='w-full text-black rounded-2xl border-black border mt-4 hover:bg-black hover:text-white ease-linear duration-300 transition'
                       size='sm'
                       variant={'ghost'}
+                      asChild
                     >
-                      View Details
+                      <Link
+                        href={`/collections/premium-liquid/${premiumLiquid._id}?variationsId=${premiumLiquid.variations[0]._id}`}
+                      >
+                        View Details
+                      </Link>
                     </Button>
                   </CardFooter>
                 </Card>
