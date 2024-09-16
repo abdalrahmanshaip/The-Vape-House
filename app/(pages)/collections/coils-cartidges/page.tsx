@@ -3,8 +3,9 @@ import { getAllDesposable } from '@/_actions/disposableAction'
 import UserDashboard from '@/app/shared/UserLayout'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
-import { TypeDispo } from '@/Types'
+import { TypeCoildsCartidge, TypeDispo } from '@/Types'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const CoilsCartidgesPage = async ({
   searchParams,
@@ -25,8 +26,9 @@ const CoilsCartidgesPage = async ({
     <UserDashboard PageTitle='Coils - Cartidges'>
       <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4'>
         {data?.coildsCartidges.length > 0 ? (
-          data?.coildsCartidges.map((coildsCartidge: TypeDispo) => {
+          data?.coildsCartidges.map((coildsCartidge: TypeCoildsCartidge) => {
             const imgSrc = `data:${coildsCartidge.img.contentType};base64,${coildsCartidge.img.data}`
+            const resistance = coildsCartidge.resistance.split(',')
             return (
               <Card key={coildsCartidge._id}>
                 <CardContent>
@@ -50,7 +52,11 @@ const CoilsCartidgesPage = async ({
                     size='sm'
                     variant={'ghost'}
                   >
-                    View Details
+                    <Link
+                      href={`/collections/coils-cartidges/${coildsCartidge._id}/?resistance=${resistance[0]}`}
+                    >
+                      View Details
+                    </Link>
                   </Button>
                 </CardFooter>
               </Card>
