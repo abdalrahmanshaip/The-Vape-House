@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { TypeTanks } from '@/Types'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const TanksPage = async ({
   searchParams,
@@ -46,8 +47,13 @@ const TanksPage = async ({
                     className='w-full text-black rounded-2xl border-black border mt-4 hover:bg-black hover:text-white ease-linear duration-300 transition'
                     size='sm'
                     variant={'ghost'}
+                    asChild
                   >
-                    View Details
+                    <Link
+                      href={`/collections/tanks/${tank._id}`}
+                    >
+                      View Details
+                    </Link>
                   </Button>
                 </CardFooter>
               </Card>
@@ -55,7 +61,6 @@ const TanksPage = async ({
           })
         ) : (
           <div className='col-span-4 text-center text-2xl'>
-            {' '}
             No Tanks available
           </div>
         )}

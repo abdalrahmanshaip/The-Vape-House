@@ -67,6 +67,7 @@ const ViewDetailsDisposable = async ({
         <RelatedProducts
           data={data?.disposables}
           url={'disposable'}
+          params={`flavor=${flavors[0]}`}
         />
       </div>
     </div>

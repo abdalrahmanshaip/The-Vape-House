@@ -12,7 +12,15 @@ import { TypeDispo } from '@/Types'
 import Image from 'next/image'
 import Link from 'next/link'
 
-const RelatedProducts = ({ data, url }: { data: any; url: string }) => {
+const RelatedProducts = ({
+  data,
+  url,
+  params,
+}: {
+  data: any
+  url: string
+  params: string
+}) => {
   return (
     <Carousel
       opts={{
@@ -23,7 +31,6 @@ const RelatedProducts = ({ data, url }: { data: any; url: string }) => {
       <CarouselContent>
         {data.map((item: TypeDispo, index: number) => {
           const imgSrc = `data:${item.img.contentType};base64,${item.img.data}`
-          const flavors = item.flavor.split(',')
           return (
             <CarouselItem
               key={index}
@@ -51,9 +58,7 @@ const RelatedProducts = ({ data, url }: { data: any; url: string }) => {
                   variant={'ghost'}
                   asChild
                 >
-                  <Link
-                    href={`/collections/${url}/${item._id}/?flavor=${flavors[0]}`}
-                  >
+                  <Link href={`/collections/${url}/${item._id}/?${params}`}>
                     View Details
                   </Link>
                 </Button>

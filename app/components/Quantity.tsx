@@ -10,7 +10,7 @@ const Quantity = ({
   selectedFlavor,
 }: {
   itemProduct: TypeDispo
-  selectedFlavor: string
+  selectedFlavor?: string
 }) => {
   const [quantity, setQuantity] = useState(1)
   const [subtotal, setSubtotal] = useState(itemProduct.price)

@@ -14,7 +14,7 @@ import { useEffect, useState } from 'react'
 import { MdOutlineShoppingCart } from 'react-icons/md'
 
 const Cart = () => {
-  const cart = JSON.parse(JSON.stringify(localStorage.getItem('cart'))) || []
+  // const cart = JSON.parse(JSON.stringify(localStorage.getItem('cart'))) || []
 
   return (
     <div className='flex items-center'>
@@ -36,9 +36,9 @@ const Cart = () => {
             <SheetTitle>Shopping Cart</SheetTitle>
           </SheetHeader>
           <SheetDescription className='text-start mb-5'>
-            {cart.length > 0 && cart.length} items
+            {/* {cart.length > 0 && cart.length} items */}
           </SheetDescription>
-          <div className='space-y-5'>
+          {/* <div className='space-y-5'>
             {cart.length > 0
               ? cart.map((cartItem: any) => {
                   const imgSrc = `cart:${cartItem?.img.contentType};base64,${cartItem.img.cart}`
@@ -94,7 +94,7 @@ const Cart = () => {
                   )
                 })
               : 'No cart available'}
-          </div>
+          </div> */}
         </SheetContent>
       </Sheet>
     </div>
