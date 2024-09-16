@@ -23,8 +23,8 @@ const ViewDetailsTanks = async ({
           <Image
             src={imgSrc}
             alt={dataItem.data?.tank.productName}
-            width={500}
-            height={500}
+            width={400}
+            height={400}
           />
         </div>
         <div className='right w-full'>
@@ -34,7 +34,6 @@ const ViewDetailsTanks = async ({
           <p className='text-lg font-bold '>
             LE {dataItem.data?.tank.price}.00
           </p>
-          <div className='mt-2 space-x-4'></div>
           <div>
             <h3 className='text-sm mt-10 text-muted-foreground'>Quantity:</h3>
             <Quantity itemProduct={dataItem.data?.tank} />

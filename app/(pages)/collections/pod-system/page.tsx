@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { TypePodSystem } from '@/Types'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const PodSystemPage = async ({
   searchParams,
@@ -53,8 +54,11 @@ const PodSystemPage = async ({
                     className='w-full text-black rounded-2xl border-black border mt-4 hover:bg-black hover:text-white ease-linear duration-300 transition'
                     size='sm'
                     variant={'ghost'}
+                    asChild
                   >
-                    View Details
+                    <Link href={`/collections/pod-system/${pod._id}?color=${colors[0]}`}>
+                      View Details
+                    </Link>
                   </Button>
                 </CardFooter>
               </Card>
