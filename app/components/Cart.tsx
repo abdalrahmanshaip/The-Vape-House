@@ -1,5 +1,4 @@
 'use client'
-
 import { Button } from '@/components/ui/button'
 import {
   Sheet,
@@ -15,20 +14,21 @@ import { MdOutlineShoppingCart } from 'react-icons/md'
 import SidebarFilteration from './SidebarFilteration'
 
 const Cart = () => {
-  const [cart, setCart] = useState<any[]>([])
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const savedValue = window.localStorage.getItem('cart')
-      if (savedValue) {
-        setCart(JSON.parse(savedValue))
-      }
-    }
-  }, [])
-  useEffect(() => {
-    if (typeof window !== 'undefined' && cart.length > 0) {
-      window.localStorage.setItem('cart', JSON.stringify(cart))
-    }
-  }, [cart])
+  // const [cart, setCart] = useState<any[]>([])
+  // useEffect(() => {
+  //   if (typeof window !== 'undefined') {
+  //     const savedValue = window.localStorage.getItem('cart')
+  //     if (savedValue) {
+  //       setCart(JSON.parse(savedValue))
+  //     }
+  //   }
+  // }, [])
+  // useEffect(() => {
+  //   if (typeof window !== 'undefined' && cart.length > 0) {
+  //     window.localStorage.setItem('cart', JSON.stringify(cart))
+  //   }
+  // }, [cart])
+  const cart = JSON.parse(localStorage.getItem('cart') || '[]')
   return (
     <div className='flex items-center'>
       <Sheet>
@@ -38,7 +38,9 @@ const Cart = () => {
               size={25}
               className='text-center'
             />
-            <p className='hidden lg:block'>Cart {cart.length > 0 && cart.length}</p>
+            <p className='hidden lg:block'>
+              Cart {cart.length > 0 && cart.length}
+            </p>
           </Button>
         </SheetTrigger>
         <SheetContent

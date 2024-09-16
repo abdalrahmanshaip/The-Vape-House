@@ -2,10 +2,8 @@ import { getAllDesposable, getDispoById } from '@/_actions/disposableAction'
 import Quantity from '@/app/components/Quantity'
 import RelatedProducts from '@/app/components/RelatedProducts'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
 
 const ViewDetailsDisposable = async ({
   params,
@@ -55,14 +53,22 @@ const ViewDetailsDisposable = async ({
           </div>
           <div>
             <h3 className='text-sm mt-10 text-muted-foreground'>Quantity:</h3>
-            <Quantity itemProduct={dataItem.data?.disposable} selectedFlavor={searchParams.flavor}/>
+            <Quantity
+              itemProduct={dataItem.data?.disposable}
+              selectedFlavor={searchParams.flavor}
+            />
           </div>
         </div>
       </div>
-        <div className='Related-Products my-10'>
-          <h3 className='border-t text-center font-bold text-xl py-5'>Related Products</h3>
-          <RelatedProducts data={data?.disposables} url={'disposable'}/>
-        </div>
+      <div className='Related-Products my-10'>
+        <h3 className='border-t text-center font-bold text-xl py-5'>
+          Related Products
+        </h3>
+        <RelatedProducts
+          data={data?.disposables}
+          url={'disposable'}
+        />
+      </div>
     </div>
   )
 }
