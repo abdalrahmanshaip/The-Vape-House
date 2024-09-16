@@ -14,6 +14,7 @@ import {
 import { TypeLiquid, TypeVariation } from '@/Types'
 import { linesEgyptVape } from '@/utils'
 import Image from 'next/image'
+import Link from 'next/link'
 import { IoFilterOutline } from 'react-icons/io5'
 
 const LiquidPage = async ({
@@ -85,6 +86,7 @@ const LiquidPage = async ({
           {data?.liquids.length > 0 ? (
             data?.liquids.map((liquid: TypeLiquid) => {
               const imgSrc = `data:${liquid.img.contentType};base64,${liquid.img.data}`
+              
               return (
                 <Card key={liquid._id}>
                   <CardContent>
@@ -113,8 +115,13 @@ const LiquidPage = async ({
                       className='w-full text-black rounded-2xl border-black border mt-4 hover:bg-black hover:text-white ease-linear duration-300 transition'
                       size='sm'
                       variant={'ghost'}
+                      asChild
                     >
-                      View Details
+                      <Link
+                        href={`/collections/e-liquid/${liquid._id}?variationsId=${liquid.variations[0]._id}`}
+                      >
+                        View Details
+                      </Link>
                     </Button>
                   </CardFooter>
                 </Card>

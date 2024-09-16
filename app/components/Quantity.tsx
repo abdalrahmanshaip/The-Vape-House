@@ -13,7 +13,7 @@ const Quantity = ({
   selectedFlavor?: string
 }) => {
   const [quantity, setQuantity] = useState(1)
-  const [subtotal, setSubtotal] = useState(itemProduct.price)
+  const [subtotal, setSubtotal] = useState(itemProduct?.price)
 
   const handleDecrement = () => {
     if (quantity > 1) {
@@ -70,7 +70,7 @@ const Quantity = ({
           className='absolute hover:bg-transparent right-[75%]'
           variant={'ghost'}
           onClick={handleIncrement}
-          disabled={quantity === itemProduct.quantity}
+          disabled={quantity === itemProduct?.quantity}
         >
           +
         </Button>

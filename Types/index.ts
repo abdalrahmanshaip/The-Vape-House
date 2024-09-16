@@ -46,6 +46,7 @@ export interface TypeLiquid {
 }
 
 export interface TypeVariation {
+  _id: string
   size: string
   nicotineType: string
   nicotine: string

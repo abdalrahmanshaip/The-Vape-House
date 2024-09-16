@@ -1,7 +1,4 @@
-import { getAllDesposable, getDispoById } from '@/_actions/disposableAction'
 import { getAllMod, getModById } from '@/_actions/modAtion'
-import { getAllPodSystems, getPodsystemById } from '@/_actions/podSystemAction'
-import { getAllTanks, getTankById } from '@/_actions/tanksAction'
 import Quantity from '@/app/components/Quantity'
 import RelatedProducts from '@/app/components/RelatedProducts'
 import { Button } from '@/components/ui/button'
@@ -18,7 +15,7 @@ const ViewDetailsMod = async ({
   const dataItem = await getModById(params.id)
   const { data } = await getAllMod()
   const imgSrc = `data:${dataItem?.data?.mod.img.contentType};base64,${dataItem.data?.mod.img.data}`
-  const colors = dataItem.data?.mod.colors.split(',')
+  const colors = data?.mods[0].colors.split(',')
   return (
     <div>
       <div className='mt-10  justify-center flex gap-x-10 w-full md:flex-row flex-col'>
@@ -43,7 +40,7 @@ const ViewDetailsMod = async ({
                   key={item}
                   variant={'ghost'}
                   className={`p-2 border-gray-300 border ${
-                    searchParams.color === item && 'border-black'
+                    searchParams.color == item && 'border-black'
                   }`}
                   asChild
                 >

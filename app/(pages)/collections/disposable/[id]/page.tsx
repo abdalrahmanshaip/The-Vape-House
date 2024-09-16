@@ -15,7 +15,7 @@ const ViewDetailsDisposable = async ({
   const dataItem = await getDispoById(params.id)
   const { data } = await getAllDesposable()
   const imgSrc = `data:${dataItem?.data?.img.contentType};base64,${dataItem.data?.img.data}`
-  const flavors = dataItem.data?.disposable.flavor.split(',')
+  const flavors = data?.disposables[0].flavor.split(',')
   return (
     <div>
       <div className='mt-10  justify-center flex gap-x-10 w-full md:flex-row flex-col'>

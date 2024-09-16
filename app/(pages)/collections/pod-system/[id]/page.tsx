@@ -17,7 +17,7 @@ const ViewDetailsPodSystem = async ({
   const dataItem = await getPodsystemById(params.id)
   const { data } = await getAllPodSystems()
   const imgSrc = `data:${dataItem?.data?.podSystem.img.contentType};base64,${dataItem.data?.podSystem.img.data}`
-  const colors = dataItem.data?.podSystem.colors.split(',')
+  const colors = data?.podSystem[0].colors.split(',')
   return (
     <div>
       <div className='mt-10  justify-center flex gap-x-10 w-full md:flex-row flex-col'>
