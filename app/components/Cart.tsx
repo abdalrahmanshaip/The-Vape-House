@@ -87,8 +87,13 @@ const Cart = () => {
                           />
                         </div>
                         <div className='details space-y-3 ms-4'>
-                          <p>{cartItem.name}</p>
-                          <p>{cartItem.flavor}</p>
+                          <p>{cartItem?.name}</p>
+                          <p>
+                            {cartItem.flavor ||
+                              cartItem.resistance ||
+                              cartItem.variations ||
+                              cartItem.color}
+                          </p>
                           <p>LE{cartItem.price}.00</p>
                         </div>
                       </div>

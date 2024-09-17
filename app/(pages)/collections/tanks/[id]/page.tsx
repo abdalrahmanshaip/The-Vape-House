@@ -36,7 +36,13 @@ const ViewDetailsTanks = async ({
           </p>
           <div>
             <h3 className='text-sm mt-10 text-muted-foreground'>Quantity:</h3>
-            <Quantity itemProduct={dataItem.data?.tank} />
+            <Quantity
+              itemProduct={dataItem.data?.tank}
+              selectedvalidation={{
+                key: 'color',
+                value: searchParams.color || searchParams.color,
+              }}
+            />
           </div>
         </div>
       </div>

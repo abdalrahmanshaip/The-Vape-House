@@ -55,7 +55,7 @@ const ViewDetailsDisposable = async ({
             <h3 className='text-sm mt-10 text-muted-foreground'>Quantity:</h3>
             <Quantity
               itemProduct={dataItem.data?.disposable}
-              selectedFlavor={searchParams.flavor}
+              selectedvalidation={{ key: 'flavor', value: searchParams.flavor }}
             />
           </div>
         </div>

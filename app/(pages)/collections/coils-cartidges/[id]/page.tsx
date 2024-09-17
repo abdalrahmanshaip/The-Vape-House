@@ -59,7 +59,10 @@ const ViewDetailsCoilsCartidge = async ({
             <h3 className='text-sm mt-10 text-muted-foreground'>Quantity:</h3>
             <Quantity
               itemProduct={dataItem.data?.coildsCartidge}
-              selectedFlavor={searchParams.resistance}
+              selectedvalidation={{
+                key: 'resistance',
+                value: searchParams.resistance,
+              }}
             />
           </div>
         </div>

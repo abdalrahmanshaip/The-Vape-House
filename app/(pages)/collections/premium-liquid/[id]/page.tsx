@@ -23,9 +23,11 @@ const ViewDetailsPremiumliquid = async ({
   const variations = dataItem?.data?.premiumLiquid.variations.map(
     (variation: TypeVariation) => variation
   )
-  const selectedVariation = variations?.filter(
-    (variation: TypeVariation) => variation._id == searchParams.variationsId
+  const selectedVariation = variations.find(
+    (variation: TypeVariation) => variation._id === searchParams.variationsId
   )
+  const defaultVariation = variations[0] || {}
+  const variationToUse = selectedVariation || defaultVariation
 
   return (
     <div>
@@ -43,38 +45,40 @@ const ViewDetailsPremiumliquid = async ({
             {dataItem.data?.premiumLiquid.productName}
           </h2>
           <p className='text-lg font-bold'>
-            LE {selectedVariation[0]?.price ? selectedVariation[0].price : 'NA'}
-            .00
+            LE {variationToUse.price ? variationToUse.price : 'NA'}.00
           </p>
           <p className='mt-5 text-sm'>
-            Size: {selectedVariation.nicotineType}
-            {selectedVariation[0]?.size}ml - {selectedVariation[0]?.nicotine}{' '}
-            nic
+            Size: {variationToUse.nicotineType} {variationToUse.size}ml -{' '}
+            {variationToUse.nicotine} nic
           </p>
           <div className='mt-2 space-x-4'>
-            {dataItem.data?.premiumLiquid.variations.map(
-              (item: TypeVariation) => {
-                return (
-                  <Button
-                    key={item._id}
-                    variant={'ghost'}
-                    className={`p-2 border-gray-300 border ${
-                      searchParams.variationsId == item._id && 'border-black'
-                    }`}
-                    asChild
-                  >
-                    <Link href={`?variationsId=${item._id}`}>
-                      {item.nicotineType} {item.size}ml - {item.nicotine} Nic
-                    </Link>
-                  </Button>
-                )
-              }
-            )}
+            {variations.map((item: TypeVariation) => {
+              return (
+                <Button
+                  key={item._id}
+                  variant={'ghost'}
+                  className={`p-2 border-gray-300 border ${
+                    searchParams.variationsId === item._id ? 'border-black' : ''
+                  }`}
+                  asChild
+                >
+                  <Link href={`?variationsId=${item._id}`}>
+                    {item.nicotineType} {item.size}ml - {item.nicotine} Nic
+                  </Link>
+                </Button>
+              )
+            })}
           </div>
           <div>
             <h3 className='text-sm mt-10 text-muted-foreground'>Quantity:</h3>
             <Quantity
-              itemProduct={selectedVariation[0] && selectedVariation[0]}
+              itemProduct={dataItem.data?.premiumLiquid}
+              selectedvalidation={{
+                key: 'variations',
+                value: `${variationToUse.nicotineType} ${variationToUse.size} ml - ${variationToUse.nicotine} nic`,
+              }}
+              price={variationToUse.price}
+              quantityLiquid={variationToUse.quantity}
             />
           </div>
         </div>

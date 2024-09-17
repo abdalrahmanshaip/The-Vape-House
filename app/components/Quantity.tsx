@@ -3,32 +3,37 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { TypeDispo } from '@/Types'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { toast } from 'sonner'
-
-// Import js-cookie
 
 const Quantity = ({
   itemProduct,
-  selectedFlavor,
+  selectedvalidation,
+  price,
+  quantityLiquid,
 }: {
   itemProduct: TypeDispo
-  selectedFlavor?: string
+  selectedvalidation: { key: string; value: string }
+  price?: number
+  quantityLiquid?: number
 }) => {
   const [quantity, setQuantity] = useState(1)
-  const [subtotal, setSubtotal] = useState(itemProduct?.price)
+  const initialPrice = price || itemProduct?.price
+
+  const [subtotal, setSubtotal] = useState(initialPrice)
+  useEffect(() => {
+    setSubtotal(quantity * initialPrice)
+  }, [quantity, initialPrice])
 
   const handleDecrement = () => {
     if (quantity > 1) {
-      setQuantity(quantity - 1)
-      setSubtotal((prev) => prev - itemProduct.price)
+      setQuantity((prevQuantity) => prevQuantity - 1)
     }
   }
 
   const handleIncrement = () => {
-    if (quantity < itemProduct.quantity) {
-      setQuantity(quantity + 1)
-      setSubtotal((prev) => prev + itemProduct.price)
+    if (quantity < itemProduct.quantity || quantityLiquid) {
+      setQuantity((prevQuantity) => prevQuantity + 1)
     }
   }
 
@@ -36,23 +41,27 @@ const Quantity = ({
     const cart = JSON.parse(localStorage.getItem('cart') || '[]')
     const existingItem = cart.find(
       (item: any) =>
-        item.productId === itemProduct._id && item.flavor === selectedFlavor
+        item.productId === itemProduct._id &&
+        item[selectedvalidation.key] === selectedvalidation?.value
     )
+
     if (existingItem) {
       existingItem.quantity += quantity
     } else {
       cart.push({
         productId: itemProduct._id,
         quantity,
-        price: itemProduct.price,
+        price: initialPrice,
         name: itemProduct.productName,
-        flavor: selectedFlavor,
+        [selectedvalidation.key]: selectedvalidation?.value,
         img: itemProduct.img,
       })
     }
+
     localStorage.setItem('cart', JSON.stringify(cart))
     const event = new CustomEvent('cartUpdated')
     window.dispatchEvent(event)
+
     toast.success('Added to cart')
   }
 
@@ -63,6 +72,7 @@ const Quantity = ({
           className='absolute hover:bg-transparent left-0'
           variant={'ghost'}
           onClick={handleDecrement}
+          disabled={quantity <= 1}
         >
           -
         </Button>
@@ -76,11 +86,14 @@ const Quantity = ({
           className='absolute hover:bg-transparent right-[75%]'
           variant={'ghost'}
           onClick={handleIncrement}
-          disabled={quantity === itemProduct?.quantity}
+          disabled={
+            quantity === itemProduct?.quantity || quantity === quantityLiquid
+          }
         >
           +
         </Button>
       </div>
+      {/* Display Subtotal */}
       <p className='text-sm'>Subtotal: LE {subtotal}.00</p>
       <Button
         variant={'default'}

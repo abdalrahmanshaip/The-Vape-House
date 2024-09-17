@@ -55,7 +55,13 @@ const ViewDetailsPodSystem = async ({
           </div>
           <div>
             <h3 className='text-sm mt-10 text-muted-foreground'>Quantity:</h3>
-            <Quantity itemProduct={dataItem.data?.podSystem} />
+            <Quantity
+              itemProduct={dataItem.data?.podSystem}
+              selectedvalidation={{
+                key: 'color',
+                value: searchParams.color || searchParams.color,
+              }}
+            />
           </div>
         </div>
       </div>
