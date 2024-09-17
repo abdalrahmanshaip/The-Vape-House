@@ -1,9 +1,12 @@
 'use client'
+
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { TypeDispo } from '@/Types'
 import { useState } from 'react'
 import { toast } from 'sonner'
+
+// Import js-cookie
 
 const Quantity = ({
   itemProduct,
@@ -21,6 +24,7 @@ const Quantity = ({
       setSubtotal((prev) => prev - itemProduct.price)
     }
   }
+
   const handleIncrement = () => {
     if (quantity < itemProduct.quantity) {
       setQuantity(quantity + 1)
@@ -47,6 +51,8 @@ const Quantity = ({
       })
     }
     localStorage.setItem('cart', JSON.stringify(cart))
+    const event = new CustomEvent('cartUpdated')
+    window.dispatchEvent(event)
     toast.success('Added to cart')
   }
 
