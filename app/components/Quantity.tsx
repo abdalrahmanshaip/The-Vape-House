@@ -32,12 +32,24 @@ const Quantity = ({
   }
 
   const handleIncrement = () => {
-    if (quantity < itemProduct.quantity || quantityLiquid) {
+    const availableQuantity = itemProduct.quantity || quantityLiquid
+
+    if (quantity < availableQuantity!) {
       setQuantity((prevQuantity) => prevQuantity + 1)
+    } else {
+      toast.error('Not enough quantity available')
     }
   }
 
   const handleAddToCart = () => {
+    const availableQuantity = itemProduct.quantity || quantityLiquid
+
+    // Check if quantity exceeds available stock
+    if (quantity > availableQuantity!) {
+      toast.error('Not enough quantity')
+      return false
+    }
+
     const cart = JSON.parse(localStorage.getItem('cart') || '[]')
     const existingItem = cart.find(
       (item: any) =>
@@ -46,6 +58,10 @@ const Quantity = ({
     )
 
     if (existingItem) {
+      if (existingItem.quantity + quantity > availableQuantity!) {
+        toast.error('Not enough quantity')
+        return false
+      }
       existingItem.quantity += quantity
     } else {
       cart.push({
@@ -55,6 +71,7 @@ const Quantity = ({
         name: itemProduct.productName,
         [selectedvalidation.key]: selectedvalidation?.value,
         img: itemProduct.img,
+        limitQuantity: availableQuantity,
       })
     }
 
@@ -63,6 +80,7 @@ const Quantity = ({
     window.dispatchEvent(event)
 
     toast.success('Added to cart')
+    return true
   }
 
   return (
@@ -87,13 +105,12 @@ const Quantity = ({
           variant={'ghost'}
           onClick={handleIncrement}
           disabled={
-            quantity === itemProduct?.quantity || quantity === quantityLiquid
+            quantity >= itemProduct?.quantity || quantity >= quantityLiquid!
           }
         >
           +
         </Button>
       </div>
-      {/* Display Subtotal */}
       <p className='text-sm'>Subtotal: LE {subtotal}.00</p>
       <Button
         variant={'default'}

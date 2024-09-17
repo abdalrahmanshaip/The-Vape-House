@@ -14,14 +14,24 @@ import { useEffect, useState } from 'react'
 import { MdOutlineShoppingCart } from 'react-icons/md'
 
 const Cart = () => {
-  const [cart, setCart] = useState([])
+  const [cart, setCart] = useState<any[]>([])
+  const [open, setOpen] = useState(false)
+  const [subtotal, setSubtotal] = useState(0)
 
   const fetchCartFromLocalStorage = () => {
     if (typeof window !== 'undefined') {
-      const storage = localStorage.getItem('cart')
-      if (storage) {
-        const products = JSON.parse(storage)
+      try {
+        const storage = localStorage.getItem('cart')
+        const products = JSON.parse(storage || '[]')
+        if (products.length > 0) {
+          setOpen(true)
+        } else {
+          setOpen(false)
+        }
         setCart(products)
+      } catch (error) {
+        setOpen(false)
+        setCart([])
       }
     }
   }
@@ -37,6 +47,18 @@ const Cart = () => {
     }
   }, [])
 
+  useEffect(() => {
+    const calculateSubtotal = () => {
+      const total = cart.reduce(
+        (acc, item) => acc + item.price * item.quantity,
+        0
+      )
+      setSubtotal(total)
+    }
+
+    calculateSubtotal()
+  }, [cart])
+
   const handleRemoveFromCart = (productId: string) => {
     const updatedCart = cart.filter(
       (item: { productId: string }) => item.productId !== productId
@@ -46,17 +68,49 @@ const Cart = () => {
     window.dispatchEvent(new CustomEvent('cartUpdated'))
   }
 
+  const handleIncrementQuantity = (productId: string) => {
+    const updatedCart = cart.map((item: any) => {
+      if (
+        item.productId === productId &&
+        item.limitQuantity !== item.quantity
+      ) {
+        return { ...item, quantity: item.quantity + 1 }
+      }
+      return item
+    })
+    setCart(updatedCart as any)
+    localStorage.setItem('cart', JSON.stringify(updatedCart))
+    window.dispatchEvent(new CustomEvent('cartUpdated'))
+  }
+
+  const handleDecrementQuantity = (productId: string) => {
+    const updatedCart = cart.map((item: any) => {
+      if (item.productId === productId && item.quantity > 1) {
+        return { ...item, quantity: item.quantity - 1 }
+      }
+      return item
+    })
+    setCart(updatedCart as any)
+    localStorage.setItem('cart', JSON.stringify(updatedCart))
+    window.dispatchEvent(new CustomEvent('cartUpdated'))
+  }
+
   return (
-    <div className='flex items-center'>
-      <Sheet>
-        <SheetTrigger asChild>
-          <Button variant='outline'>
-            <MdOutlineShoppingCart
-              size={25}
-              className='text-center'
-            />
-            <p className='hidden lg:block'>Cart</p>
-          </Button>
+    <div className='flex items-center relative'>
+      <Sheet
+        open={open}
+        onOpenChange={setOpen}
+      >
+        <SheetTrigger className={`flex`}>
+          <MdOutlineShoppingCart
+            size={25}
+            className='text-center'
+          />
+          {cart.length > 0 && (
+            <span className=' w-6 h-6 rounded-full bottom-6 left-3  text-white bg-black absolute'>
+              {cart.length}
+            </span>
+          )}
         </SheetTrigger>
         <SheetContent
           side={'right'}
@@ -102,6 +156,9 @@ const Cart = () => {
                           <Button
                             className='absolute hover:bg-transparent left-0'
                             variant={'ghost'}
+                            onClick={() =>
+                              handleDecrementQuantity(cartItem.productId)
+                            }
                           >
                             -
                           </Button>
@@ -114,6 +171,9 @@ const Cart = () => {
                           <Button
                             className='absolute hover:bg-transparent right-[50%] top-0'
                             variant={'ghost'}
+                            onClick={() =>
+                              handleIncrementQuantity(cartItem.productId)
+                            }
                           >
                             +
                           </Button>
@@ -133,6 +193,13 @@ const Cart = () => {
                 })
               : 'No cart available'}
           </div>
+          {/* Subtotal Section */}
+          {cart.length > 0 && (
+            <div className='mt-5 text-sm font-bold flex justify-between'>
+              <p className=''>Subtotal:</p>
+              <p className=''> LE {subtotal}.00</p>
+            </div>
+          )}
         </SheetContent>
       </Sheet>
     </div>
