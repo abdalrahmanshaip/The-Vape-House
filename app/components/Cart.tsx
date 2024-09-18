@@ -10,6 +10,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { MdOutlineShoppingCart } from 'react-icons/md'
 
@@ -59,9 +60,23 @@ const Cart = () => {
     calculateSubtotal()
   }, [cart])
 
-  const handleRemoveFromCart = (productId: string) => {
+  const handleRemoveFromCart = (
+    productId: string,
+    variations: [],
+    flavor: string,
+    resistance: string
+  ) => {
     const updatedCart = cart.filter(
-      (item: { productId: string }) => item.productId !== productId
+      (item: {
+        productId: string
+        variations: []
+        flavor: string
+        resistance: string
+      }) =>
+        item.productId !== productId ||
+        item.variations !== variations ||
+        item.flavor !== flavor ||
+        item.resistance !== resistance
     )
     setCart(updatedCart)
     localStorage.setItem('cart', JSON.stringify(updatedCart))
@@ -123,81 +138,96 @@ const Cart = () => {
             {cart.length > 0 && cart.length} items
           </SheetDescription>
           <div className='space-y-5'>
-            {cart.length > 0
-              ? cart.map((cartItem: any) => {
-                  const imgSrc = `data:${cartItem?.img?.contentType};base64,${cartItem?.img?.data}`
-                  return (
-                    <div
-                      key={cartItem.productId}
-                      className='border-b pb-4'
-                    >
-                      <div className='flex'>
-                        <div className='img'>
-                          <Image
-                            src={imgSrc}
-                            alt={cartItem.name}
-                            width={100}
-                            height={100}
-                          />
-                        </div>
-                        <div className='details space-y-3 ms-4'>
-                          <p>{cartItem?.name}</p>
-                          <p>
-                            {cartItem.flavor ||
-                              cartItem.resistance ||
-                              cartItem.variations ||
-                              cartItem.color}
-                          </p>
-                          <p>LE{cartItem.price}.00</p>
-                        </div>
+            {cart.length > 0 ? (
+              cart.map((cartItem: any, index) => {
+                const imgSrc = `data:${cartItem?.img?.contentType};base64,${cartItem?.img?.data}`
+                return (
+                  <div
+                    key={index}
+                    className='border-b pb-4'
+                  >
+                    <div className='flex'>
+                      <div className='img'>
+                        <Image
+                          src={imgSrc}
+                          alt={cartItem.name}
+                          width={100}
+                          height={100}
+                        />
                       </div>
-                      <div className='flex justify-between items-center mt-2'>
-                        <div className='relative'>
-                          <Button
-                            className='absolute hover:bg-transparent left-0'
-                            variant={'ghost'}
-                            onClick={() =>
-                              handleDecrementQuantity(cartItem.productId)
-                            }
-                          >
-                            -
-                          </Button>
-                          <Input
-                            className='rounded-3xl text-center w-[50%]'
-                            type='text'
-                            readOnly
-                            value={cartItem.quantity}
-                          />
-                          <Button
-                            className='absolute hover:bg-transparent right-[50%] top-0'
-                            variant={'ghost'}
-                            onClick={() =>
-                              handleIncrementQuantity(cartItem.productId)
-                            }
-                          >
-                            +
-                          </Button>
-                        </div>
-                        <Button
-                          className='text-2xl '
-                          variant={'ghost'}
-                          onClick={() =>
-                            handleRemoveFromCart(cartItem.productId)
-                          }
-                        >
-                          x
-                        </Button>
+                      <div className='details space-y-3 ms-4'>
+                        <p>{cartItem?.name}</p>
+                        <p>
+                          {cartItem.flavor ||
+                            cartItem.resistance ||
+                            cartItem.variations ||
+                            cartItem.color}
+                        </p>
+                        <p>LE{cartItem.price}.00</p>
                       </div>
                     </div>
-                  )
-                })
-              : 'No cart available'}
+                    <div className='flex justify-between items-center mt-2'>
+                      <div className='relative'>
+                        <Button
+                          className='absolute hover:bg-transparent left-0'
+                          variant={'ghost'}
+                          onClick={() =>
+                            handleDecrementQuantity(cartItem.productId)
+                          }
+                        >
+                          -
+                        </Button>
+                        <Input
+                          className='rounded-3xl text-center w-[50%]'
+                          type='text'
+                          readOnly
+                          value={cartItem.quantity}
+                        />
+                        <Button
+                          className='absolute hover:bg-transparent right-[50%] top-0'
+                          variant={'ghost'}
+                          onClick={() =>
+                            handleIncrementQuantity(cartItem.productId)
+                          }
+                        >
+                          +
+                        </Button>
+                      </div>
+                      <Button
+                        className='text-2xl '
+                        variant={'ghost'}
+                        onClick={() =>
+                          handleRemoveFromCart(
+                            cartItem.productId,
+                            cartItem.variations,
+                            cartItem.flavor,
+                            cartItem.resistance
+                          )
+                        }
+                      >
+                        x
+                      </Button>
+                    </div>
+                  </div>
+                )
+              })
+            ) : (
+              <div className='text-center'>Your cart is empty</div>
+            )}
           </div>
-          {/* Subtotal Section */}
           {cart.length > 0 && (
-            <div className='mt-5 text-sm font-bold flex justify-between'>
-              <p className=''>Subtotal:</p>
-              <p className=''> LE {subtotal}.00</p>
+            <div>
+              <div className='mt-5 text-sm font-bold flex justify-between'>
+                <p className=''>Subtotal:</p>
+                <p className=''> LE {subtotal}.00</p>
+              </div>
+              <Button
+                variant={'default'}
+                className='mt-4 w-full'
+                asChild
+              >
+                <Link href={'/checkout'}>Checkout</Link>
+              </Button>
             </div>
           )}
         </SheetContent>

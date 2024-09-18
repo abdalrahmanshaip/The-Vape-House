@@ -43,8 +43,6 @@ const Quantity = ({
 
   const handleAddToCart = () => {
     const availableQuantity = itemProduct.quantity || quantityLiquid
-
-    // Check if quantity exceeds available stock
     if (quantity > availableQuantity!) {
       toast.error('Not enough quantity')
       return false

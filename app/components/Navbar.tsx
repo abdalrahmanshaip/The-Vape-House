@@ -25,11 +25,15 @@ const Navbar = async () => {
       <div className='container mx-auto px-5 lg:px-0 flex justify-between lg:justify-between items-center h-full'>
         <ul className='hidden lg:flex space-x-4'>
           <Link href={'/'}>Home</Link>
-          <Link href={'/about-us'}>About Us</Link>
-          <Link href={'/contact'}>Contact</Link>
+          <Link href={'https://wa.me/+201140458943'}>Whatsapp</Link>
         </ul>
         <Dropdown />
-        <div className='text-2xl text-center lg:-ml-14'>The Vape House</div>
+        <Link
+          href={'/'}
+          className='text-2xl text-center lg:-ml-14'
+        >
+          The Vape House
+        </Link>
         <div className='flex space-x-5'>
           <Cart />
 
