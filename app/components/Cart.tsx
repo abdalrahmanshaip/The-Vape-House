@@ -225,6 +225,7 @@ const Cart = () => {
                 variant={'default'}
                 className='mt-4 w-full'
                 asChild
+                onClick={() => setOpen(false)}
               >
                 <Link href={'/checkout'}>Checkout</Link>
               </Button>
