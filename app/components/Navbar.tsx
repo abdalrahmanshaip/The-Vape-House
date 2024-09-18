@@ -25,7 +25,12 @@ const Navbar = async () => {
       <div className='container mx-auto px-5 lg:px-0 flex justify-between lg:justify-between items-center h-full'>
         <ul className='hidden lg:flex space-x-4'>
           <Link href={'/'}>Home</Link>
-          <Link href={'https://wa.me/+201140458943'}>Whatsapp</Link>
+          <Link
+            href={'https://wa.me/+201112554852'}
+            target='_blank'
+          >
+            Whatsapp
+          </Link>
         </ul>
         <Dropdown />
         <Link

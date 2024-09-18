@@ -49,7 +49,10 @@ const Dropdown = () => {
             <Link href={'/'}>
               <DropdownMenuItem>Home</DropdownMenuItem>
             </Link>
-            <Link href={'https://wa.me/+201140458943'}>
+            <Link
+              href={'https://wa.me/+201112554852'}
+              target='_blank'
+            >
               <DropdownMenuItem>Whatsapp</DropdownMenuItem>
             </Link>
           </DropdownMenuGroup>
