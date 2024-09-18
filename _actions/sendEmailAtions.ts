@@ -12,11 +12,13 @@ export async function sendEmail(
     city: formData.get('city'),
     phoneNumber: formData.get('phoneNumber'),
     email: formData.get('email'),
-    cart: [formData.get('cart')],
+    cart: JSON.parse(formData.get('cart') as string),
     subtotal: Number(formData.get('subtotal')),
     delivery: Number(formData.get('delivery')),
     total: Number(formData.get('total')),
   }
+
+  console.log(dataEmail.cart)
 
   const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -32,8 +34,8 @@ export async function sendEmail(
   })
 
   const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: 'abdalrahmanshaip@gmail.com',
+    from: dataEmail.email,
+    to: process.env.EMAIL_USER,
     subject: `New Order from ${dataEmail.firstName} ${dataEmail.lastName}`,
     html: `
       <h1>New Order Details</h1>
@@ -69,7 +71,7 @@ export async function sendEmail(
   }
 
   try {
-    await transporter.sendMail(mailOptions)
+    await transporter.sendMail(mailOptions as any)
     return { status: 200, message: 'Order placed and email sent' }
   } catch (error: any) {
     console.error('Error sending email:', error)

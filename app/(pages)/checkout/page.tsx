@@ -41,6 +41,7 @@ const CheckoutPage = () => {
     toast.error(state.message)
   }
   const [cart, setCart] = useState<any[]>([])
+  console.log(cart)
   const [subtotal, setSubtotal] = useState(0)
   const [delivery, setDelivery] = useState(70)
 
@@ -190,7 +191,7 @@ const CheckoutPage = () => {
               })}
               <Input
                 type='hidden'
-                value={cart}
+                value={JSON.stringify(cart)}
                 name='cart'
               />
             </ul>
