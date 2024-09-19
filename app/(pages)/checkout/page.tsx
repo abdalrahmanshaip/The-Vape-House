@@ -46,7 +46,7 @@ const CheckoutPage = () => {
   if (state.status === 200) {
     toast.success('Your order has been send successfully')
   } else if (state.status === 500) {
-    toast.error('Error sending email')
+    toast.error('Error sending email ')
   }
   const [cart, setCart] = useState<any[]>([])
   const [subtotal, setSubtotal] = useState(0)
