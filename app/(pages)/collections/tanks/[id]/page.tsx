@@ -3,6 +3,7 @@ import { getAllTanks, getTankById } from '@/_actions/tanksAction'
 import Quantity from '@/app/components/Quantity'
 import RelatedProducts from '@/app/components/RelatedProducts'
 import { Button } from '@/components/ui/button'
+import { TypeTanks } from '@/Types'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -16,6 +17,9 @@ const ViewDetailsTanks = async ({
   const dataItem = await getTankById(params.id)
   const { data } = await getAllTanks()
   const imgSrc = `data:${dataItem?.data?.tank.img.contentType};base64,${dataItem.data?.tank.img.data}`
+  const maybeLike = data?.tanks.filter(
+    (item: TypeTanks) => item._id !== dataItem.data?.tank._id
+  )
   return (
     <div>
       <div className='mt-10  justify-center flex gap-x-10 w-full md:flex-row flex-col'>
@@ -51,7 +55,7 @@ const ViewDetailsTanks = async ({
           Related Products
         </h3>
         <RelatedProducts
-          data={data?.tanks}
+          data={maybeLike}
           url={'tanks'}
           params=''
         />

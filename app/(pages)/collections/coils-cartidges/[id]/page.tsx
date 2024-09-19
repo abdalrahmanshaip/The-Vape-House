@@ -6,6 +6,7 @@ import { getAllDesposable, getDispoById } from '@/_actions/disposableAction'
 import Quantity from '@/app/components/Quantity'
 import RelatedProducts from '@/app/components/RelatedProducts'
 import { Button } from '@/components/ui/button'
+import { TypeCoildsCartidge } from '@/Types'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -20,6 +21,9 @@ const ViewDetailsCoilsCartidge = async ({
   const { data } = await getAllCoilsCartidges()
   const imgSrc = `data:${dataItem?.data?.img.contentType};base64,${dataItem.data?.img.data}`
   const resistance = data?.coildsCartidges[0].resistance.split(',')
+  const maybeLike = data?.coildsCartidges.filter(
+    (item: TypeCoildsCartidge) => item._id !== dataItem.data?.coildsCartidge._id
+  )
   return (
     <div>
       <div className='mt-10  justify-center flex gap-x-10 w-full md:flex-row flex-col'>
@@ -72,7 +76,7 @@ const ViewDetailsCoilsCartidge = async ({
           Related Products
         </h3>
         <RelatedProducts
-          data={data?.coildsCartidges}
+          data={maybeLike}
           url={'coils-cartidges'}
           params={`resistance=${resistance[0]}`}
         />

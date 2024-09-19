@@ -2,6 +2,7 @@ import { getAllMod, getModById } from '@/_actions/modAtion'
 import Quantity from '@/app/components/Quantity'
 import RelatedProducts from '@/app/components/RelatedProducts'
 import { Button } from '@/components/ui/button'
+import { TypeMod } from '@/Types'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -16,6 +17,9 @@ const ViewDetailsMod = async ({
   const { data } = await getAllMod()
   const imgSrc = `data:${dataItem?.data?.mod.img.contentType};base64,${dataItem.data?.mod.img.data}`
   const colors = data?.mods[0].colors.split(',')
+  const maybeLike = data?.mods.filter(
+    (item: TypeMod) => item._id !== dataItem.data?.mod._id
+  )
   return (
     <div>
       <div className='mt-10  justify-center flex gap-x-10 w-full md:flex-row flex-col'>
@@ -66,7 +70,7 @@ const ViewDetailsMod = async ({
           Related Products
         </h3>
         <RelatedProducts
-          data={data?.mods}
+          data={maybeLike}
           url={'mod'}
           params={`color=${colors[0]}`}
         />

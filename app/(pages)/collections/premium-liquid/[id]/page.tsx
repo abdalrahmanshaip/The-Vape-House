@@ -6,7 +6,7 @@ import {
 import Quantity from '@/app/components/Quantity'
 import RelatedProducts from '@/app/components/RelatedProducts'
 import { Button } from '@/components/ui/button'
-import { TypeVariation } from '@/Types'
+import { TypeLiquid, TypeVariation } from '@/Types'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -28,6 +28,9 @@ const ViewDetailsPremiumliquid = async ({
   )
   const defaultVariation = variations[0] || {}
   const variationToUse = selectedVariation || defaultVariation
+  const maybeLike = data?.premiumLiquids.filter(
+    (item: TypeLiquid) => item._id !== dataItem.data?.premiumLiquid._id
+  )
 
   return (
     <div>
@@ -88,7 +91,7 @@ const ViewDetailsPremiumliquid = async ({
           Related Products
         </h3>
         <RelatedProducts
-          data={data?.premiumLiquids}
+          data={maybeLike}
           url={'premium-liquid'}
           params={`variationsId=${data?.premiumLiquids[0].variations[0]._id}`}
         />

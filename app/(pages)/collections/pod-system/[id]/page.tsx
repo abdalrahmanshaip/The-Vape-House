@@ -4,6 +4,7 @@ import { getAllTanks, getTankById } from '@/_actions/tanksAction'
 import Quantity from '@/app/components/Quantity'
 import RelatedProducts from '@/app/components/RelatedProducts'
 import { Button } from '@/components/ui/button'
+import { TypePodSystem } from '@/Types'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -18,6 +19,9 @@ const ViewDetailsPodSystem = async ({
   const { data } = await getAllPodSystems()
   const imgSrc = `data:${dataItem?.data?.podSystem.img.contentType};base64,${dataItem.data?.podSystem.img.data}`
   const colors = data?.podSystem[0].colors.split(',')
+  const maybeLike = data?.podSystem.filter(
+    (item: TypePodSystem) => item._id !== dataItem.data?.podSystem._id
+  )
   return (
     <div>
       <div className='mt-10  justify-center flex gap-x-10 w-full md:flex-row flex-col'>
@@ -70,7 +74,7 @@ const ViewDetailsPodSystem = async ({
           Related Products
         </h3>
         <RelatedProducts
-          data={data?.podSystem}
+          data={maybeLike}
           url={'pod-system'}
           params={`color=${colors[0]}`}
         />
