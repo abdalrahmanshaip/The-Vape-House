@@ -72,9 +72,9 @@ export async function sendEmail(
 
   try {
     await transporter.sendMail(mailOptions as any)
-    return { status: 200, message: 'Order placed and email sent' }
+    return { status: 200, message: 'Your order has been send successfully' }
   } catch (error: any) {
     console.error('Error sending email:', error)
-    return { status: 500, message: `Error sending email: ${error.message}` }
+    return { status: 500, message: `Error sending email` }
   }
 }

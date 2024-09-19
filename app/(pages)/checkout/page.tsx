@@ -10,11 +10,12 @@ import {
   SelectLabel,
   SelectTrigger,
 } from '@/components/ui/select'
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'
+
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { useFormState, useFormStatus } from 'react-dom'
 import { toast } from 'sonner'
-
 const initialstate = {
   status: 0,
   message: '',
@@ -28,24 +29,29 @@ const SubmitButton = () => {
       type='submit'
       disabled={pending}
     >
-      {pending ? 'Completing order...' : 'Complete order'}
+      {pending ? (
+        <div className='flex'>
+          <p>Completing order </p>
+          <AiOutlineLoading3Quarters className='ms-2 h-4 w-4 animate-spin' />
+        </div>
+      ) : (
+        'Complete order'
+      )}
     </Button>
   )
 }
 
 const CheckoutPage = () => {
   const [state, formAction] = useFormState(sendEmail, initialstate)
-  if (state.status === 201) {
-    toast.success(state.message)
-  } else if (state.status === 400) {
-    toast.error(state.message)
+  if (state.status === 200) {
+    toast.success('Your order has been send successfully')
+  } else if (state.status === 500) {
+    toast.error('Error sending email')
   }
   const [cart, setCart] = useState<any[]>([])
-  console.log(cart)
   const [subtotal, setSubtotal] = useState(0)
   const [delivery, setDelivery] = useState(70)
 
-  // Fetch cart from localStorage
   const fetchCartFromLocalStorage = () => {
     if (typeof window !== 'undefined') {
       try {
@@ -93,6 +99,7 @@ const CheckoutPage = () => {
                 placeholder='Email or mobile phone number'
                 className='w-full mt-2'
                 name='email'
+                required
               />
             </div>
             <div className='mb-6'>
@@ -101,21 +108,25 @@ const CheckoutPage = () => {
                 <Input
                   placeholder='First name (optional)'
                   name='firstName'
+                  required
                 />
                 <Input
                   placeholder='Last name'
                   name='lastName'
+                  required
                 />
               </div>
               <Input
                 placeholder='Address'
                 className='w-full mt-2'
                 name='address'
+                required
               />
               <div className='grid grid-cols-2 gap-4 mt-2'>
                 <Input
                   placeholder='City'
                   name='city'
+                  required
                 />
                 <Select>
                   <SelectTrigger className='w-full'>
@@ -135,6 +146,8 @@ const CheckoutPage = () => {
                 placeholder='Phone'
                 className='w-full mt-2'
                 name='phoneNumber'
+                type='number'
+                required
               />
             </div>
             <div className='mb-6'>
@@ -144,8 +157,6 @@ const CheckoutPage = () => {
                 <p className='text-right'>EGP {delivery.toFixed(2)}</p>
               </div>
             </div>
-
-            {/* Payment */}
             <div className='mb-6'>
               <h2 className='text-xl font-semibold mb-2'>Payment</h2>
               <div className='p-4 border rounded-lg'>
@@ -154,8 +165,6 @@ const CheckoutPage = () => {
             </div>
             <SubmitButton />
           </div>
-
-          {/* Right Side (Cart Summary) */}
           <div className='lg:col-span-1 bg-gray-50 p-6 rounded-lg'>
             <h2 className='text-xl font-semibold mb-4'>Order Summary</h2>
             <ul className='space-y-5 mb-2'>
