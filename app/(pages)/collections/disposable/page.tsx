@@ -12,7 +12,7 @@ const DisposablePage = async ({
   searchParams: { page?: string; limit?: string; search?: string; sort: string }
 }) => {
   let page = parseInt(searchParams.page || '1') || 1
-  let limit = parseInt(searchParams.limit || '10') || 10
+  let limit = parseInt(searchParams.limit || '12') || 10
   let search = searchParams.search || ''
   const sort = searchParams.sort || ''
 
@@ -23,7 +23,7 @@ const DisposablePage = async ({
 
   return (
     <UserDashboard PageTitle='Disposable'>
-      <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4'>
+      <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 gap-y-10'>
         {data?.disposables.length > 0 ? (
           data?.disposables.map((disposable: TypeDispo) => {
             const imgSrc = `data:${disposable.img.contentType};base64,${disposable.img.data}`

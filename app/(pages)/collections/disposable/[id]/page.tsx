@@ -14,6 +14,7 @@ const ViewDetailsDisposable = async ({
   searchParams: { flavor: string }
 }) => {
   const dataItem = await getDispoById(params.id)
+  const flavorsItem = dataItem.data?.disposable.flavor.split(',')
   const { data } = await getAllDesposable()
   const imgSrc = `data:${dataItem?.data?.img.contentType};base64,${dataItem.data?.img.data}`
   const flavors = data?.disposables[0].flavor.split(',')
@@ -31,7 +32,7 @@ const ViewDetailsDisposable = async ({
             height={500}
           />
         </div>
-        <div className='right w-full'>
+        <div className='right w-full mt-6'>
           <h2 className='text-2xl font-bold'>
             {dataItem.data?.disposable.productName}
           </h2>
@@ -39,13 +40,13 @@ const ViewDetailsDisposable = async ({
             LE {dataItem.data?.disposable.price}.00
           </p>
           <p className='mt-5 text-sm'>Flavors: {searchParams.flavor}</p>
-          <div className='mt-2 space-x-4'>
-            {flavors.map((item: string) => {
+          <div className='mt-2  flex flex-wrap gap-2 '>
+            {flavorsItem.map((item: string) => {
               return (
                 <Button
                   key={item}
                   variant={'ghost'}
-                  className={`p-2 border-gray-300 border ${
+                  className={`p-2 border-gray-300 border  ${
                     searchParams.flavor === item && 'border-black'
                   }`}
                   asChild
