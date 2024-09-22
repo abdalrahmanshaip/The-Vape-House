@@ -46,8 +46,11 @@ const RelatedProducts = ({ data, url }: { data: any; url: string }) => {
                       className='w-full h-52 object-contain'
                       src={imgSrc}
                       alt={item.productName}
-                      width={400} // You can adjust the width and height as needed
+                      width={400}
                       height={300}
+                      priority
+                      placeholder='blur'
+                      blurDataURL='/path/to/small-placeholder-image'
                     />
                   </CardContent>
                 </Card>

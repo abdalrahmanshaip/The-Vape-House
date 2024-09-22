@@ -18,7 +18,6 @@ export async function sendEmail(
     total: Number(formData.get('total')),
   }
 
-  console.log(dataEmail.cart)
 
   const transporter = nodemailer.createTransport({
     service: 'gmail',

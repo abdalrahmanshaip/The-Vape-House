@@ -29,6 +29,9 @@ const ViewDetailsDisposable = async ({
             alt={dataItem.data?.disposable.productName}
             width={500}
             height={500}
+            priority
+            placeholder='blur'
+            blurDataURL='/path/to/small-placeholder-image'
           />
         </div>
         <div className='right w-full mt-6'>
