@@ -39,7 +39,7 @@ const ViewDetailsDisposable = async ({
             LE {dataItem.data?.disposable.price}.00
           </p>
           <p className='mt-5 text-sm'>Flavors: {searchParams.flavor}</p>
-          {/* <div className='mt-2  flex flex-wrap gap-2 '>
+          <div className='mt-2  flex flex-wrap gap-2 '>
             {flavorsItem.map((item: string, index: number) => {
               return (
                 <Button
@@ -54,7 +54,7 @@ const ViewDetailsDisposable = async ({
                 </Button>
               )
             })}
-          </div> */}
+          </div>
           <div>
             <h3 className='text-sm mt-10 text-muted-foreground'>Quantity:</h3>
             <Quantity

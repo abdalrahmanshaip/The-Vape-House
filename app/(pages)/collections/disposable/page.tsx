@@ -51,7 +51,7 @@ const DisposablePage = async ({
                     asChild
                   >
                     <Link
-                      href={`/collections/disposable/${disposable._id}`}
+                      href={`/collections/disposable/${disposable._id}/?flavor=${flavors[0]}`}
                     >
                       View Details
                     </Link>

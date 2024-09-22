@@ -61,7 +61,7 @@ const RelatedProducts = ({ data, url }: { data: any; url: string }) => {
                   variant={'ghost'}
                   asChild
                 >
-                  <Link href={`/collections/${url}/${item._id}`}>
+                  <Link href={`/collections/${url}/${item._id}/${queryString}`}>
                     View Details
                   </Link>
                 </Button>
