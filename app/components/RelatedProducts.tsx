@@ -36,7 +36,7 @@ const RelatedProducts = ({ data, url }: { data: any; url: string }) => {
 
           return (
             <CarouselItem
-              key={index}
+              key={item._id}
               className='md:basis-1/2 lg:basis-1/4'
             >
               <div className='p-1'>

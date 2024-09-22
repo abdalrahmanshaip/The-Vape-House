@@ -40,10 +40,10 @@ const ViewDetailsDisposable = async ({
           </p>
           <p className='mt-5 text-sm'>Flavors: {searchParams.flavor}</p>
           <div className='mt-2  flex flex-wrap gap-2 '>
-            {flavorsItem.map((item: string) => {
+            {flavorsItem.map((item: string, index: number) => {
               return (
                 <Button
-                  key={item}
+                  key={index}
                   variant={'ghost'}
                   className={`p-2 border-gray-300 border  ${
                     searchParams.flavor === item && 'border-black'
