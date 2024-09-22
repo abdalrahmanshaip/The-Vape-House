@@ -50,12 +50,7 @@ const ViewDetailsDisposable = async ({
                   }`}
                   asChild
                 >
-                  <Link
-                    href={`?flavor=${item}`}
-                    prefetch={false}
-                  >
-                    {item}
-                  </Link>
+                  <Link href={`?flavor=${item}`}>{item}</Link>
                 </Button>
               )
             })}
