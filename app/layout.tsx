@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'The vape house',
   description:
-    'Welcome to The Vape House – your ultimate destination for all things vaping! Explore premium vape products, expert advice, and a vast selection of e-liquids in a welcoming atmosphere.',
+    'Welcome to The Vape House - your ultimate destination for all things vaping! Explore premium vape products, expert advice, and a vast selection of e-liquids in a welcoming atmosphere.',
 }
 
 export default function RootLayout({
