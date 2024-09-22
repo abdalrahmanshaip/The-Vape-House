@@ -78,7 +78,6 @@ const ViewDetailsCoilsCartidge = async ({
         <RelatedProducts
           data={maybeLike}
           url={'coils-cartidges'}
-          params={`resistance=${resistance[0]}`}
         />
       </div>
     </div>

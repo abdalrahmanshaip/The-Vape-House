@@ -72,7 +72,6 @@ const ViewDetailsMod = async ({
         <RelatedProducts
           data={maybeLike}
           url={'mod'}
-          params={`color=${colors[0]}`}
         />
       </div>
     </div>

@@ -76,7 +76,6 @@ const ViewDetailsPodSystem = async ({
         <RelatedProducts
           data={maybeLike}
           url={'pod-system'}
-          params={`color=${colors[0]}`}
         />
       </div>
     </div>

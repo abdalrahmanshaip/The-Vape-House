@@ -12,15 +12,7 @@ import { TypeDispo } from '@/Types'
 import Image from 'next/image'
 import Link from 'next/link'
 
-const RelatedProducts = ({
-  data,
-  url,
-  params,
-}: {
-  data: any
-  url: string
-  params: string
-}) => {
+const RelatedProducts = ({ data, url }: { data: any; url: string }) => {
   return (
     <Carousel
       opts={{
@@ -29,8 +21,19 @@ const RelatedProducts = ({
       className='w-full'
     >
       <CarouselContent>
-        {data.map((item: TypeDispo, index: number) => {
+        {data.map((item: any, index: number) => {
           const imgSrc = `data:${item.img.contentType};base64,${item.img.data}`
+          const queryParams = []
+          if (item?.flavor)
+            queryParams.push(`flavor=${item.flavor.split(',')[0]}`)
+          if (item?.color) queryParams.push(`color=${item.color.split(',')[0]}`)
+          if (item?.resistance)
+            queryParams.push(`resistance=${item.resistance.split(',')[0]}`)
+          if (item?.variations)
+            queryParams.push(`variationsId=${item.variations[0]._id}`)
+          const queryString =
+            queryParams.length > 0 ? `?${queryParams.join('&')}` : ''
+
           return (
             <CarouselItem
               key={index}
@@ -58,7 +61,7 @@ const RelatedProducts = ({
                   variant={'ghost'}
                   asChild
                 >
-                  <Link href={`/collections/${url}/${item._id}/?${params}`}>
+                  <Link href={`/collections/${url}/${item._id}/${queryString}`}>
                     View Details
                   </Link>
                 </Button>

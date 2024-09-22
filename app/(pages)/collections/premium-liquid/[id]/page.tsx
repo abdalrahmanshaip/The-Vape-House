@@ -93,7 +93,6 @@ const ViewDetailsPremiumliquid = async ({
         <RelatedProducts
           data={maybeLike}
           url={'premium-liquid'}
-          params={`variationsId=${data?.premiumLiquids[0].variations[0]._id}`}
         />
       </div>
     </div>

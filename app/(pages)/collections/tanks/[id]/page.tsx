@@ -57,7 +57,6 @@ const ViewDetailsTanks = async ({
         <RelatedProducts
           data={maybeLike}
           url={'tanks'}
-          params=''
         />
       </div>
     </div>

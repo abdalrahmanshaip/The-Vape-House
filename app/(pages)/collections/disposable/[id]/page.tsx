@@ -17,7 +17,6 @@ const ViewDetailsDisposable = async ({
   const flavorsItem = dataItem.data?.disposable.flavor.split(',')
   const { data } = await getAllDesposable()
   const imgSrc = `data:${dataItem?.data?.img.contentType};base64,${dataItem.data?.img.data}`
-  const flavors = data?.disposables[0].flavor.split(',')
   const maybeLike = data?.disposables.filter(
     (item: TypeDispo) => item._id !== dataItem.data?.disposable._id
   )
@@ -72,7 +71,6 @@ const ViewDetailsDisposable = async ({
         <RelatedProducts
           data={maybeLike}
           url={'disposable'}
-          params={`flavor=${flavors[0]}`}
         />
       </div>
     </div>
