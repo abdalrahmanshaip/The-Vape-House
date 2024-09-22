@@ -52,6 +52,7 @@ const DisposablePage = async ({
                   >
                     <Link
                       href={`/collections/disposable/${disposable._id}/?flavor=${flavors[0]}`}
+                      prefetch={false}
                     >
                       View Details
                     </Link>
