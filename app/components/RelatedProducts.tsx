@@ -1,4 +1,3 @@
-import { getAllDesposable } from '@/_actions/disposableAction'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import {
@@ -8,7 +7,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel'
-import { TypeDispo } from '@/Types'
 import Image from 'next/image'
 import Link from 'next/link'
 

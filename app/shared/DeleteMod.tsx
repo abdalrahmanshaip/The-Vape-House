@@ -1,7 +1,6 @@
 'use client'
 
 import { deleteMod } from '@/_actions/modAtion'
-import { deletePodSystem } from '@/_actions/podSystemAction'
 import { Button } from '@/components/ui/button'
 import { useFormState } from 'react-dom'
 import { MdDelete } from 'react-icons/md'

@@ -1,5 +1,5 @@
-import Image from 'next/image'
 import heroImg from '@/assets/tvubmKCpaZoTv0bQyBaLb0JsTqqYkg4YlF6gAcux.webp'
+import Image from 'next/image'
 
 const Hero = () => {
   return (

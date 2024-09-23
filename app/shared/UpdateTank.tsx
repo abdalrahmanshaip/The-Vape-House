@@ -5,7 +5,6 @@ import { Input } from '@/components/ui/input'
 import { TypeTanks } from '@/Types'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import React from 'react'
 import { useFormState, useFormStatus } from 'react-dom'
 import { toast } from 'sonner'
 const initialstate = {

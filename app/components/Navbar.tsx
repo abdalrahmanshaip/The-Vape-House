@@ -9,11 +9,11 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { LoginLink, LogoutLink } from '@kinde-oss/kinde-auth-nextjs/components'
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
-import Link from 'next/link'
-import { MdOutlineAccountCircle, MdOutlineShoppingCart } from 'react-icons/md'
-import Dropdown from './Dropdown'
 import Image from 'next/image'
+import Link from 'next/link'
+import { MdOutlineAccountCircle } from 'react-icons/md'
 import Cart from './Cart'
+import Dropdown from './Dropdown'
 const Navbar = async () => {
   const { isAuthenticated, getUser, getPermission } = getKindeServerSession()
   const isUserAuthenticated = await isAuthenticated()

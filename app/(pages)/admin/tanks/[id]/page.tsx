@@ -2,7 +2,6 @@ import { getTankById } from '@/_actions/tanksAction'
 import UpdateTank from '@/app/shared/UpdateTank'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import React from 'react'
 
 const UpdateTankPage = async ({ params }: { params: { id: string } }) => {
   const { data } = await getTankById(params.id)

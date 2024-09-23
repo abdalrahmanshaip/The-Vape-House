@@ -1,11 +1,8 @@
-import { getAllDesposable, getDispoById } from '@/_actions/disposableAction'
 import { getAllTanks, getTankById } from '@/_actions/tanksAction'
 import Quantity from '@/app/components/Quantity'
 import RelatedProducts from '@/app/components/RelatedProducts'
-import { Button } from '@/components/ui/button'
 import { TypeTanks } from '@/Types'
 import Image from 'next/image'
-import Link from 'next/link'
 
 const ViewDetailsTanks = async ({
   params,

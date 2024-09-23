@@ -16,10 +16,10 @@ import { getAllDesposable } from '@/_actions/disposableAction'
 import AdminDashboard from '@/app/shared/AdminDashboard'
 import DeleteDispo from '@/app/shared/DeleteDispo'
 import { Button } from '@/components/ui/button'
+import { TypeDispo } from '@/Types'
 import Image from 'next/image'
 import Link from 'next/link'
 import { MdEdit } from 'react-icons/md'
-import { TypeDispo } from '@/Types'
 
 
 

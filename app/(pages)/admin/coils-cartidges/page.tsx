@@ -1,5 +1,7 @@
+import { TypeCoildsCartidge } from '@/Types'
 import { getAllCoilsCartidges } from '@/_actions/coilsCartidgeAction'
 import AdminDashboard from '@/app/shared/AdminDashboard'
+import DeleteCoilCartidge from '@/app/shared/DeleteCoilCartidge'
 import { Button } from '@/components/ui/button'
 import {
   Pagination,
@@ -17,8 +19,6 @@ import {
 import Image from 'next/image'
 import Link from 'next/link'
 import { MdEdit } from 'react-icons/md'
-import { TypeCoildsCartidge } from '@/Types'
-import DeleteCoilCartidge from '@/app/shared/DeleteCoilCartidge'
 
 const ConilsCartidgesAdminPage = async ({
   searchParams,

@@ -2,7 +2,6 @@ import {
   getAllCoilsCartidges,
   getCoilsCartidgeById,
 } from '@/_actions/coilsCartidgeAction'
-import { getAllDesposable, getDispoById } from '@/_actions/disposableAction'
 import Quantity from '@/app/components/Quantity'
 import RelatedProducts from '@/app/components/RelatedProducts'
 import { Button } from '@/components/ui/button'

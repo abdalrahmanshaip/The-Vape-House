@@ -1,8 +1,7 @@
 'use client'
-import { TypeLiquid } from '@/Types'
-import React, { useState } from 'react'
-import { Input } from '@/components/ui/input'
+import { updateLiquid } from '@/_actions/liquidAtion'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import {
   Select,
   SelectContent,
@@ -12,11 +11,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { updateLiquid } from '@/_actions/liquidAtion'
-import { toast } from 'sonner'
-import Image from 'next/image'
-import { useFormStatus } from 'react-dom'
+import { TypeLiquid } from '@/Types'
 import { linesEgyptVape } from '@/utils'
+import Image from 'next/image'
+import React, { useState } from 'react'
+import { useFormStatus } from 'react-dom'
+import { toast } from 'sonner'
 
 const UpdateLiquid = ({ data }: { data: TypeLiquid }) => {
   const [line, setLine] = useState<string>(data.line || '')

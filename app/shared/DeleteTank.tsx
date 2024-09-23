@@ -1,7 +1,6 @@
 'use client'
 import { deleteTank } from '@/_actions/tanksAction'
 import { Button } from '@/components/ui/button'
-import React from 'react'
 import { useFormState } from 'react-dom'
 import { MdDelete } from 'react-icons/md'
 import { toast } from 'sonner'

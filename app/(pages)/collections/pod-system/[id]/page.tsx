@@ -1,6 +1,4 @@
-import { getAllDesposable, getDispoById } from '@/_actions/disposableAction'
 import { getAllPodSystems, getPodsystemById } from '@/_actions/podSystemAction'
-import { getAllTanks, getTankById } from '@/_actions/tanksAction'
 import Quantity from '@/app/components/Quantity'
 import RelatedProducts from '@/app/components/RelatedProducts'
 import { Button } from '@/components/ui/button'

@@ -34,10 +34,11 @@ const DisposablePage = async ({
                   <div>
                     <Image
                       className='w-full h-52 object-contain'
-                      src={imgSrc}
+                      src={imgSrc} 
                       alt={disposable.productName}
-                      width={100}
-                      height={100}
+                      width={200} 
+                      height={200}
+                      priority
                     />
                   </div>
                   <h2 className=' mt-4 my-4'>{disposable.productName}</h2>

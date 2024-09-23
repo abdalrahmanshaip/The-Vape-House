@@ -7,13 +7,10 @@ import {
 } from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
-import { TypeLiquid } from '@/Types'
 import {
-  linesEgyptVape,
   nicotineLevelFilterLiquid,
-  sizeForFilterLiquid,
+  sizeForFilterLiquid
 } from '@/utils'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
