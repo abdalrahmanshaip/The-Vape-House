@@ -31,13 +31,13 @@ const PodSystemPage = async ({
             return (
               <Card key={pod._id}>
                 <CardContent>
-                  <div>
+                  <div className='flex justify-center'>
                     <Image
-                      className='w-full h-52 object-contain'
                       src={imgSrc}
                       alt={pod.productName}
-                      width={100}
-                      height={100}
+                      width={200}
+                      height={200}
+                      loading='lazy'
                     />
                   </div>
                   <h2 className=' mt-4 my-4'>{pod.productName}</h2>
@@ -56,7 +56,9 @@ const PodSystemPage = async ({
                     variant={'ghost'}
                     asChild
                   >
-                    <Link href={`/collections/pod-system/${pod._id}?color=${colors[0]}`}>
+                    <Link
+                      href={`/collections/pod-system/${pod._id}?color=${colors[0]}`}
+                    >
                       View Details
                     </Link>
                   </Button>

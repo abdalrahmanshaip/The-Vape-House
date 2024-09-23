@@ -31,13 +31,13 @@ const ModPage = async ({
             return (
               <Card key={mod._id}>
                 <CardContent>
-                  <div>
+                  <div className='flex justify-center'>
                     <Image
-                      className='w-full h-52 object-contain'
                       src={imgSrc}
                       alt={mod.productName}
-                      width={100}
-                      height={100}
+                      width={200}
+                      height={200}
+                      loading='lazy'
                     />
                   </div>
                   <h2 className=' mt-4 my-4'>{mod.productName}</h2>

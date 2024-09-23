@@ -89,13 +89,13 @@ const PremiumLiquidPage = async ({
               return (
                 <Card key={premiumLiquid._id}>
                   <CardContent>
-                    <div>
+                  <div className='flex justify-center'>
                       <Image
-                        className='w-full h-52 object-contain'
                         src={imgSrc}
                         alt={premiumLiquid.productName}
-                        width={100}
-                        height={100}
+                        width={200}
+                        height={200}
+                        loading='lazy'
                       />
                     </div>
                     <h2 className=' mt-4 my-4'>{premiumLiquid.productName}</h2>

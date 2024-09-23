@@ -31,14 +31,13 @@ const DisposablePage = async ({
             return (
               <Card key={disposable._id}>
                 <CardContent>
-                  <div>
+                  <div className='flex justify-center'>
                     <Image
-                      className='w-full h-52 object-contain'
-                      src={imgSrc} 
+                      src={imgSrc}
                       alt={disposable.productName}
                       width={200} 
                       height={200}
-                      priority
+                      loading='lazy'
                     />
                   </div>
                   <h2 className=' mt-4 my-4'>{disposable.productName}</h2>

@@ -86,17 +86,17 @@ const LiquidPage = async ({
           {data?.liquids.length > 0 ? (
             data?.liquids.map((liquid: TypeLiquid) => {
               const imgSrc = `data:${liquid.img.contentType};base64,${liquid.img.data}`
-              
+
               return (
                 <Card key={liquid._id}>
                   <CardContent>
-                    <div>
+                    <div className='flex justify-center'>
                       <Image
-                        className='w-full h-52 object-contain'
                         src={imgSrc}
                         alt={liquid.productName}
-                        width={100}
-                        height={100}
+                        width={200}
+                        height={200}
+                        loading='lazy'
                       />
                     </div>
                     <h2 className=' mt-4 my-4'>{liquid.productName}</h2>

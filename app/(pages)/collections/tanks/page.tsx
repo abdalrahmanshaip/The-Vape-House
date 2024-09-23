@@ -30,15 +30,15 @@ const TanksPage = async ({
             return (
               <Card key={tank._id}>
                 <CardContent>
-                  <div>
-                    <Image
-                      className='w-full h-52 object-contain'
-                      src={imgSrc}
-                      alt={tank.productName}
-                      width={100}
-                      height={100}
-                    />
-                  </div>
+                <div className='flex justify-center'>
+                      <Image
+                        src={imgSrc}
+                        alt={tank.productName}
+                        width={200}
+                        height={200}
+                        loading='lazy'
+                      />
+                    </div>
                   <h2 className=' mt-4 my-4'>{tank.productName}</h2>
                   <span className='font-bold '>LE {tank.price}.00</span>
                 </CardContent>

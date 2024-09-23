@@ -20,12 +20,13 @@ const ViewDetailsTanks = async ({
   return (
     <div>
       <div className='mt-10  justify-center flex gap-x-10 w-full md:flex-row flex-col'>
-        <div className='left w-full flex md:justify-end'>
+        <div className='leftflex md:justify-end'>
           <Image
             src={imgSrc}
             alt={dataItem.data?.tank.productName}
-            width={400}
-            height={400}
+            width={700}
+            height={700}
+            priority
           />
         </div>
         <div className='right w-full'>
