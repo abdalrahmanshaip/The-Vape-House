@@ -56,6 +56,7 @@ const CarouselTopItem = async () => {
                 >
                   <Link
                     href={`collections/disposable/${item._id}/?flavor=${flavors[0]}`}
+                    shallow={true}
                   >
                     View Details
                   </Link>

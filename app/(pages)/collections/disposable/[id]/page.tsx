@@ -51,7 +51,12 @@ const ViewDetailsDisposable = async ({
                   }`}
                   asChild
                 >
-                  <Link href={`?flavor=${item}`}>{item}</Link>
+                  <Link
+                    href={`?flavor=${item}`}
+                    shallow={true}
+                  >
+                    {item}
+                  </Link>
                 </Button>
               )
             })}

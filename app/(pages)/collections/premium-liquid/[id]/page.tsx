@@ -65,7 +65,10 @@ const ViewDetailsPremiumliquid = async ({
                   }`}
                   asChild
                 >
-                  <Link href={`?variationsId=${item._id}`}>
+                  <Link
+                    href={`?variationsId=${item._id}`}
+                    shallow={true}
+                  >
                     {item.nicotineType} {item.size}ml - {item.nicotine} Nic
                   </Link>
                 </Button>

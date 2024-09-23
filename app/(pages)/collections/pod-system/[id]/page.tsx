@@ -51,7 +51,12 @@ const ViewDetailsPodSystem = async ({
                   }`}
                   asChild
                 >
-                  <Link href={`?color=${item}`}>{item}</Link>
+                  <Link
+                    href={`?color=${item}`}
+                    shallow={true}
+                  >
+                    {item}
+                  </Link>
                 </Button>
               )
             })}
