@@ -41,14 +41,11 @@ const RelatedProducts = ({ data, url }: { data: any; url: string }) => {
                 <Card>
                   <CardContent className='flex flex-col  items-center justify-center p-0'>
                     <Image
-                      className='w-full h-52 object-contain'
                       src={imgSrc}
                       alt={item.productName}
-                      width={400}
-                      height={300}
-                      priority
-                      placeholder='blur'
-                      blurDataURL='/path/to/small-placeholder-image'
+                      width={200}
+                      height={200}
+                      loading='lazy'
                     />
                   </CardContent>
                 </Card>

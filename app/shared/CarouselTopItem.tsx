@@ -36,11 +36,11 @@ const CarouselTopItem = async () => {
                 <Card>
                   <CardContent className='flex flex-col  items-center justify-center p-0'>
                     <Image
-                      className='w-full h-52 object-contain'
                       src={imgSrc}
                       alt={item.productName}
-                      width={400} // You can adjust the width and height as needed
-                      height={300}
+                      width={200}
+                      height={200}
+                      loading='lazy'
                     />
                   </CardContent>
                 </Card>
