@@ -18,7 +18,9 @@ const Hero = () => {
           <Image
             src={heroImg}
             alt='hero image'
+            sizes='(max-width: 768px) 100vw'
             className='md:w-[50%]'
+            loading='lazy'
           />
         </div>
       </div>
