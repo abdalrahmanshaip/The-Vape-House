@@ -39,22 +39,11 @@ const ViewDetailsMod = async ({
           </h2>
           <p className='text-lg font-bold '>LE {dataItem.data?.mod.price}.00</p>
           <p className='mt-5 text-sm'>Color: {searchParams.color}</p>
-          <div className='mt-2 space-x-4'>
-            <Variations
-              attribute={'color'}
-              values={colors}
-            />
-          </div>
-          <div>
-            <h3 className='text-sm mt-10 text-muted-foreground'>Quantity:</h3>
-            <Quantity
-              itemProduct={dataItem.data?.mod}
-              selectedvalidation={{
-                key: 'color',
-                value: searchParams.color || searchParams.color,
-              }}
-            />
-          </div>
+          <Variations
+            attribute={'color'}
+            values={colors}
+            dataItem={dataItem.data?.mod}
+          />
         </div>
       </div>
       <div className='Related-Products my-10'>

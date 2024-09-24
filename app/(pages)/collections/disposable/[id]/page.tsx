@@ -41,19 +41,11 @@ const ViewDetailsDisposable = async ({
             LE {dataItem.data?.disposable.price}.00
           </p>
           <p className='mt-5 text-sm'>Flavors: {searchParams.flavor}</p>
-          <div className='mt-2  flex flex-wrap gap-2 '>
-            <Variations
-              attribute={'flavor'}
-              values={flavorsItem}
-            />
-          </div>
-          <div>
-            <h3 className='text-sm mt-10 text-muted-foreground'>Quantity:</h3>
-            <Quantity
-              itemProduct={dataItem.data?.disposable}
-              selectedvalidation={{ key: 'flavor', value: searchParams.flavor }}
-            />
-          </div>
+          <Variations
+            attribute={'flavor'}
+            values={flavorsItem}
+            dataItem={dataItem.data?.disposable}
+          />
         </div>
       </div>
       <div className='Related-Products my-10'>

@@ -41,22 +41,12 @@ const ViewDetailsPodSystem = async ({
             LE {dataItem.data?.podSystem.price}.00
           </p>
           <p className='mt-5 text-sm'>Color: {searchParams.color}</p>
-          <div className='mt-2 space-x-4'>
-            <Variations
-              attribute={'color'}
-              values={colors}
-            />
-          </div>
-          <div>
-            <h3 className='text-sm mt-10 text-muted-foreground'>Quantity:</h3>
-            <Quantity
-              itemProduct={dataItem.data?.podSystem}
-              selectedvalidation={{
-                key: 'color',
-                value: searchParams.color || searchParams.color,
-              }}
-            />
-          </div>
+
+          <Variations
+            attribute={'color'}
+            values={colors}
+            dataItem={dataItem.data?.podSystem}
+          />
         </div>
       </div>
       <div className='Related-Products my-10'>

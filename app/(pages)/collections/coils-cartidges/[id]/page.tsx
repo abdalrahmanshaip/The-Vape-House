@@ -43,22 +43,11 @@ const ViewDetailsCoilsCartidge = async ({
             LE {dataItem.data?.coildsCartidge.price}.00
           </p>
           <p className='mt-5 text-sm'>Resistance: {searchParams.resistance}</p>
-          <div className='mt-2 space-x-4'>
-            <Variations
-              attribute={'resistance'}
-              values={resistance}
-            />
-          </div>
-          <div>
-            <h3 className='text-sm mt-10 text-muted-foreground'>Quantity:</h3>
-            <Quantity
-              itemProduct={dataItem.data?.coildsCartidge}
-              selectedvalidation={{
-                key: 'resistance',
-                value: searchParams.resistance,
-              }}
-            />
-          </div>
+          <Variations
+            attribute={'resistance'}
+            values={resistance}
+            dataItem={dataItem.data?.coildsCartidge}
+          />
         </div>
       </div>
       <div className='Related-Products my-10'>
