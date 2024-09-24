@@ -19,7 +19,7 @@ const ViewDetailsCoilsCartidge = async ({
   const dataItem = await getCoilsCartidgeById(params.id)
   const { data } = await getAllCoilsCartidges()
   const imgSrc = `data:${dataItem?.data?.img.contentType};base64,${dataItem.data?.img.data}`
-  const resistance = data?.coildsCartidges[0].resistance.split(',')
+  const resistance = dataItem.data?.coildsCartidge.resistance.split(',')
   const maybeLike = data?.coildsCartidges.filter(
     (item: TypeCoildsCartidge) => item._id !== dataItem.data?.coildsCartidge._id
   )

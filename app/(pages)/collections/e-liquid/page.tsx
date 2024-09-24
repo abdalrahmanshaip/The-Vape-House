@@ -4,6 +4,11 @@ import UserLayout from '@/app/shared/UserLayout'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+} from '@/components/ui/pagination'
+import {
   Sheet,
   SheetContent,
   SheetDescription,
@@ -32,7 +37,7 @@ const LiquidPage = async ({
   }
 }) => {
   let page = parseInt(searchParams.page || '1') || 1
-  let limit = parseInt(searchParams.limit || '10') || 10
+  let limit = parseInt(searchParams.limit || '12') || 10
   let search = searchParams.search || ''
   const sort = searchParams.sort || ''
   const nicotine = searchParams.nicotine || ''
@@ -43,7 +48,7 @@ const LiquidPage = async ({
   page = !page || page < 1 ? 1 : page
   limit = !limit || limit < 1 ? 10 : limit
 
-  const { data } = await getAllLiquids(
+  const { data, totalCount } = await getAllLiquids(
     limit,
     page,
     search,
@@ -53,6 +58,7 @@ const LiquidPage = async ({
     size,
     line
   )
+  const totalPages = Math.ceil(totalCount! / limit)
 
   return (
     <UserLayout PageTitle='Liquid'>
@@ -78,7 +84,7 @@ const LiquidPage = async ({
         </Sheet>
       </div>
       <div className='flex'>
-        <div className='h-screen w-[25%] me-10 hidden lg:block'>
+        <div className=' w-[25%] me-10 hidden lg:block'>
           <SidebarFilteration lineVape={linesEgyptVape} />
         </div>
 
@@ -134,6 +140,28 @@ const LiquidPage = async ({
           )}
         </div>
       </div>
+      <Pagination className='mt-10'>
+        <PaginationContent>
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+            <PaginationItem key={p}>
+              <Button
+                className={`${
+                  p === page && 'border bg-blue-500 text-white'
+                } rounded-full`}
+                variant={'ghost'}
+                asChild
+              >
+                <Link
+                  href={`?page=${p}`}
+                  scroll={false}
+                >
+                  {p}
+                </Link>
+              </Button>
+            </PaginationItem>
+          ))}
+        </PaginationContent>
+      </Pagination>
     </UserLayout>
   )
 }

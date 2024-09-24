@@ -5,6 +5,11 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { TypeTanks } from '@/Types'
 import Image from 'next/image'
 import Link from 'next/link'
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+} from '@/components/ui/pagination'
 
 const TanksPage = async ({
   searchParams,
@@ -19,7 +24,8 @@ const TanksPage = async ({
   page = !page || page < 1 ? 1 : page
   limit = !limit || limit < 1 ? 10 : limit
 
-  const { data } = await getAllTanks(limit, page, search, sort)
+  const { data, totalCount } = await getAllTanks(limit, page, search, sort)
+  const totalPages = Math.ceil(totalCount! / limit)
 
   return (
     <UserDashboard PageTitle='Tanks'>
@@ -30,15 +36,15 @@ const TanksPage = async ({
             return (
               <Card key={tank._id}>
                 <CardContent>
-                <div className='flex justify-center'>
-                      <Image
-                        src={imgSrc}
-                        alt={tank.productName}
-                        width={200}
-                        height={200}
-                        loading='lazy'
-                      />
-                    </div>
+                  <div className='flex justify-center'>
+                    <Image
+                      src={imgSrc}
+                      alt={tank.productName}
+                      width={200}
+                      height={200}
+                      loading='lazy'
+                    />
+                  </div>
                   <h2 className=' mt-4 my-4'>{tank.productName}</h2>
                   <span className='font-bold '>LE {tank.price}.00</span>
                 </CardContent>
@@ -49,9 +55,7 @@ const TanksPage = async ({
                     variant={'ghost'}
                     asChild
                   >
-                    <Link
-                      href={`/collections/tanks/${tank._id}`}
-                    >
+                    <Link href={`/collections/tanks/${tank._id}`}>
                       View Details
                     </Link>
                   </Button>
@@ -65,6 +69,28 @@ const TanksPage = async ({
           </div>
         )}
       </div>
+      <Pagination className='mt-10'>
+        <PaginationContent>
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+            <PaginationItem key={p}>
+              <Button
+                className={`${
+                  p === page && 'border bg-blue-500 text-white'
+                } rounded-full`}
+                variant={'ghost'}
+                asChild
+              >
+                <Link
+                  href={`?page=${p}`}
+                  scroll={false}
+                >
+                  {p}
+                </Link>
+              </Button>
+            </PaginationItem>
+          ))}
+        </PaginationContent>
+      </Pagination>
     </UserDashboard>
   )
 }

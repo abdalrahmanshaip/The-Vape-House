@@ -11,6 +11,11 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet'
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+} from '@/components/ui/pagination'
 import { TypeLiquid, TypeVariation } from '@/Types'
 import { linesPremiumVape } from '@/utils'
 import Image from 'next/image'
@@ -43,7 +48,7 @@ const PremiumLiquidPage = async ({
   page = !page || page < 1 ? 1 : page
   limit = !limit || limit < 1 ? 10 : limit
 
-  const { data } = await getAllPremiumLiquids(
+  const { data, totalCount } = await getAllPremiumLiquids(
     limit,
     page,
     search,
@@ -53,7 +58,7 @@ const PremiumLiquidPage = async ({
     size,
     line
   )
-
+  const totalPages = Math.ceil(totalCount! / limit)
   return (
     <UserLayout PageTitle='Premium Liquid'>
       <div className='lg:hidden -mt-4'>
@@ -78,7 +83,7 @@ const PremiumLiquidPage = async ({
         </Sheet>
       </div>
       <div className='flex'>
-        <div className='h-screen w-[25%] me-10 hidden lg:block'>
+        <div className='w-[25%] me-10 hidden lg:block'>
           <SidebarFilteration lineVape={linesPremiumVape} />
         </div>
 
@@ -89,7 +94,7 @@ const PremiumLiquidPage = async ({
               return (
                 <Card key={premiumLiquid._id}>
                   <CardContent>
-                  <div className='flex justify-center'>
+                    <div className='flex justify-center'>
                       <Image
                         src={imgSrc}
                         alt={premiumLiquid.productName}
@@ -133,6 +138,28 @@ const PremiumLiquidPage = async ({
           )}
         </div>
       </div>
+      <Pagination className='mt-10'>
+        <PaginationContent>
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+            <PaginationItem key={p}>
+              <Button
+                className={`${
+                  p === page && 'border bg-blue-500 text-white'
+                } rounded-full`}
+                variant={'ghost'}
+                asChild
+              >
+                <Link
+                  href={`?page=${p}`}
+                  scroll={false}
+                >
+                  {p}
+                </Link>
+              </Button>
+            </PaginationItem>
+          ))}
+        </PaginationContent>
+      </Pagination>
     </UserLayout>
   )
 }

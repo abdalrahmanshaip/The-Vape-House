@@ -2,6 +2,11 @@ import { getAllMod } from '@/_actions/modAtion'
 import UserDashboard from '@/app/shared/UserLayout'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+} from '@/components/ui/pagination'
 import { TypeMod } from '@/Types'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -19,7 +24,8 @@ const ModPage = async ({
   page = !page || page < 1 ? 1 : page
   limit = !limit || limit < 1 ? 10 : limit
 
-  const { data } = await getAllMod(limit, page, search, sort)
+  const { data, totalCount } = await getAllMod(limit, page, search, sort)
+  const totalPages = Math.ceil(totalCount! / limit)
 
   return (
     <UserDashboard PageTitle='Mod'>
@@ -66,6 +72,28 @@ const ModPage = async ({
           </div>
         )}
       </div>
+      <Pagination className='mt-10'>
+        <PaginationContent>
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+            <PaginationItem key={p}>
+              <Button
+                className={`${
+                  p === page && 'border bg-blue-500 text-white'
+                } rounded-full`}
+                variant={'ghost'}
+                asChild
+              >
+                <Link
+                  href={`?page=${p}`}
+                  scroll={false}
+                >
+                  {p}
+                </Link>
+              </Button>
+            </PaginationItem>
+          ))}
+        </PaginationContent>
+      </Pagination>
     </UserDashboard>
   )
 }

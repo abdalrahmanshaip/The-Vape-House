@@ -2,6 +2,11 @@ import { getAllCoilsCartidges } from '@/_actions/coilsCartidgeAction'
 import UserDashboard from '@/app/shared/UserLayout'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+} from '@/components/ui/pagination'
 import { TypeCoildsCartidge } from '@/Types'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -12,15 +17,20 @@ const CoilsCartidgesPage = async ({
   searchParams: { page?: string; limit?: string; search?: string; sort: string }
 }) => {
   let page = parseInt(searchParams.page || '1') || 1
-  let limit = parseInt(searchParams.limit || '10') || 10
+  let limit = parseInt(searchParams.limit || '12') || 10
   let search = searchParams.search || ''
   const sort = searchParams.sort || ''
 
   page = !page || page < 1 ? 1 : page
   limit = !limit || limit < 1 ? 10 : limit
 
-  const { data } = await getAllCoilsCartidges(limit, page, search, sort)
-
+  const { data, totalCount } = await getAllCoilsCartidges(
+    limit,
+    page,
+    search,
+    sort
+  )
+  const totalPages = Math.ceil(totalCount! / limit)
   return (
     <UserDashboard PageTitle='Coils - Cartidges'>
       <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4'>
@@ -67,6 +77,28 @@ const CoilsCartidgesPage = async ({
           </div>
         )}
       </div>
+      <Pagination className='mt-10'>
+        <PaginationContent>
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+            <PaginationItem key={p}>
+              <Button
+                className={`${
+                  p === page && 'border bg-blue-500 text-white'
+                } rounded-full`}
+                variant={'ghost'}
+                asChild
+              >
+                <Link
+                  href={`?page=${p}`}
+                  scroll={false}
+                >
+                  {p}
+                </Link>
+              </Button>
+            </PaginationItem>
+          ))}
+        </PaginationContent>
+      </Pagination>
     </UserDashboard>
   )
 }

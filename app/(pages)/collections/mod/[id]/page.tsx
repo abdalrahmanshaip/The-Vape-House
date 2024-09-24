@@ -16,7 +16,7 @@ const ViewDetailsMod = async ({
   const dataItem = await getModById(params.id)
   const { data } = await getAllMod()
   const imgSrc = `data:${dataItem?.data?.mod.img.contentType};base64,${dataItem.data?.mod.img.data}`
-  const colors = data?.mods[0].colors.split(',')
+  const colors = dataItem.data?.mod.colors.split(',')
   const maybeLike = data?.mods.filter(
     (item: TypeMod) => item._id !== dataItem.data?.mod._id
   )
