@@ -23,7 +23,7 @@ const Filteration = () => {
     if (search.trim()) {
       currentParams.set('search', search)
     } else {
-      currentParams.delete('search') // Remove if empty
+      currentParams.delete('search')
     }
 
     if (limit) {
@@ -37,8 +37,6 @@ const Filteration = () => {
     } else {
       currentParams.delete('sort')
     }
-
-    // Push updated query string without removing existing params
     router.push(`?${currentParams.toString()}`)
   }, [limit, sort, search, router])
 

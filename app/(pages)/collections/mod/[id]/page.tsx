@@ -1,6 +1,7 @@
 import { getAllMod, getModById } from '@/_actions/modAtion'
 import Quantity from '@/app/components/Quantity'
 import RelatedProducts from '@/app/components/RelatedProducts'
+import Variations from '@/app/components/Variations'
 import { Button } from '@/components/ui/button'
 import { TypeMod } from '@/Types'
 import Image from 'next/image'
@@ -39,25 +40,10 @@ const ViewDetailsMod = async ({
           <p className='text-lg font-bold '>LE {dataItem.data?.mod.price}.00</p>
           <p className='mt-5 text-sm'>Color: {searchParams.color}</p>
           <div className='mt-2 space-x-4'>
-            {colors.map((item: string) => {
-              return (
-                <Button
-                  key={item}
-                  variant={'ghost'}
-                  className={`p-2 border-gray-300 border ${
-                    searchParams.color == item && 'border-black'
-                  }`}
-                  asChild
-                >
-                  <Link
-                    href={`?color=${item}`}
-                    shallow={true}
-                  >
-                    {item}
-                  </Link>
-                </Button>
-              )
-            })}
+            <Variations
+              attribute={'color'}
+              values={colors}
+            />
           </div>
           <div>
             <h3 className='text-sm mt-10 text-muted-foreground'>Quantity:</h3>

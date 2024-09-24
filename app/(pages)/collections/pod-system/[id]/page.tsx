@@ -1,6 +1,7 @@
 import { getAllPodSystems, getPodsystemById } from '@/_actions/podSystemAction'
 import Quantity from '@/app/components/Quantity'
 import RelatedProducts from '@/app/components/RelatedProducts'
+import Variations from '@/app/components/Variations'
 import { Button } from '@/components/ui/button'
 import { TypePodSystem } from '@/Types'
 import Image from 'next/image'
@@ -41,25 +42,10 @@ const ViewDetailsPodSystem = async ({
           </p>
           <p className='mt-5 text-sm'>Color: {searchParams.color}</p>
           <div className='mt-2 space-x-4'>
-            {colors.map((item: string) => {
-              return (
-                <Button
-                  key={item}
-                  variant={'ghost'}
-                  className={`p-2 border-gray-300 border ${
-                    searchParams.color === item && 'border-black'
-                  }`}
-                  asChild
-                >
-                  <Link
-                    href={`?color=${item}`}
-                    shallow={true}
-                  >
-                    {item}
-                  </Link>
-                </Button>
-              )
-            })}
+            <Variations
+              attribute={'color'}
+              values={colors}
+            />
           </div>
           <div>
             <h3 className='text-sm mt-10 text-muted-foreground'>Quantity:</h3>

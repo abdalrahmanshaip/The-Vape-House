@@ -1,6 +1,7 @@
 import { getAllDesposable, getDispoById } from '@/_actions/disposableAction'
 import Quantity from '@/app/components/Quantity'
 import RelatedProducts from '@/app/components/RelatedProducts'
+import Variations from '@/app/components/Variations'
 import { Button } from '@/components/ui/button'
 import { TypeDispo } from '@/Types'
 import Image from 'next/image'
@@ -41,25 +42,10 @@ const ViewDetailsDisposable = async ({
           </p>
           <p className='mt-5 text-sm'>Flavors: {searchParams.flavor}</p>
           <div className='mt-2  flex flex-wrap gap-2 '>
-            {flavorsItem.map((item: string, index: number) => {
-              return (
-                <Button
-                  key={index}
-                  variant={'ghost'}
-                  className={`p-2 border-gray-300 border  ${
-                    searchParams.flavor === item && 'border-black'
-                  }`}
-                  asChild
-                >
-                  <Link
-                    href={`?flavor=${item}`}
-                    shallow={true}
-                  >
-                    {item}
-                  </Link>
-                </Button>
-              )
-            })}
+            <Variations
+              attribute={'flavor'}
+              values={flavorsItem}
+            />
           </div>
           <div>
             <h3 className='text-sm mt-10 text-muted-foreground'>Quantity:</h3>

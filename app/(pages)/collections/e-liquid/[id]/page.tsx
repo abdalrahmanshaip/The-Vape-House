@@ -1,6 +1,7 @@
 import { getAllLiquids, getLiquidById } from '@/_actions/liquidAtion'
 import Quantity from '@/app/components/Quantity'
 import RelatedProducts from '@/app/components/RelatedProducts'
+import Variations from '@/app/components/Variations'
 import { Button } from '@/components/ui/button'
 import { TypeLiquid, TypeVariation } from '@/Types'
 import Image from 'next/image'

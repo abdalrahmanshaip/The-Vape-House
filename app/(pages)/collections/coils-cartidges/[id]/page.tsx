@@ -4,6 +4,7 @@ import {
 } from '@/_actions/coilsCartidgeAction'
 import Quantity from '@/app/components/Quantity'
 import RelatedProducts from '@/app/components/RelatedProducts'
+import Variations from '@/app/components/Variations'
 import { Button } from '@/components/ui/button'
 import { TypeCoildsCartidge } from '@/Types'
 import Image from 'next/image'
@@ -43,20 +44,10 @@ const ViewDetailsCoilsCartidge = async ({
           </p>
           <p className='mt-5 text-sm'>Resistance: {searchParams.resistance}</p>
           <div className='mt-2 space-x-4'>
-            {resistance.map((item: string) => {
-              return (
-                <Button
-                  key={item}
-                  variant={'ghost'}
-                  className={`p-2 border-gray-300 border ${
-                    searchParams.resistance === item && 'border-black'
-                  }`}
-                  asChild
-                >
-                  <Link href={`?resistance=${item}`}>{item}</Link>
-                </Button>
-              )
-            })}
+            <Variations
+              attribute={'resistance'}
+              values={resistance}
+            />
           </div>
           <div>
             <h3 className='text-sm mt-10 text-muted-foreground'>Quantity:</h3>
