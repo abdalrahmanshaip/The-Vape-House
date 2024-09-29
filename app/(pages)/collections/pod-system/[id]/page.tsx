@@ -17,7 +17,7 @@ const ViewDetailsPodSystem = async ({
   const dataItem = await getPodsystemById(params.id)
   const { data } = await getAllPodSystems()
   const imgSrc = `data:${dataItem?.data?.podSystem.img.contentType};base64,${dataItem.data?.podSystem.img.data}`
-  const colors = data?.podSystem[0].colors.split(',')
+  const colors = dataItem.data?.podSystem.colors.split(',')
   const maybeLike = data?.podSystem.filter(
     (item: TypePodSystem) => item._id !== dataItem.data?.podSystem._id
   )
