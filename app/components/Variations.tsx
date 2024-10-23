@@ -9,9 +9,15 @@ type VariationsProps = {
   attribute: string
   values: string[]
   dataItem: any
+  variantItem: string
 }
 
-const Variations = ({ dataItem, attribute, values }: VariationsProps) => {
+const Variations = ({
+  dataItem,
+  attribute,
+  values,
+  variantItem,
+}: VariationsProps) => {
   const router = useRouter()
   const [selectedValue, setSelectedValue] = useState<string>(values[0])
 
@@ -25,6 +31,9 @@ const Variations = ({ dataItem, attribute, values }: VariationsProps) => {
 
   return (
     <>
+      <p className='mt-5 text-sm'>
+        {variantItem}: {selectedValue}
+      </p>
       <div className='flex flex-wrap gap-2 mt-4'>
         {values.map((value) => {
           return (

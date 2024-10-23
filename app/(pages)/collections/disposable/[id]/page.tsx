@@ -9,10 +9,8 @@ import Link from 'next/link'
 
 const ViewDetailsDisposable = async ({
   params,
-  searchParams,
 }: {
   params: { id: string }
-  searchParams: { flavor: string }
 }) => {
   const dataItem = await getDispoById(params.id)
   const flavorsItem = dataItem.data?.disposable.flavor.split(',')
@@ -40,11 +38,11 @@ const ViewDetailsDisposable = async ({
           <p className='text-lg font-bold '>
             LE {dataItem.data?.disposable.price}.00
           </p>
-          <p className='mt-5 text-sm'>Flavors: {searchParams.flavor}</p>
           <Variations
             attribute={'flavor'}
             values={flavorsItem}
             dataItem={dataItem.data?.disposable}
+            variantItem='Flavors'
           />
         </div>
       </div>

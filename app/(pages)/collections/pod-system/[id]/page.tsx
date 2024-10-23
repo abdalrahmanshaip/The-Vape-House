@@ -40,12 +40,11 @@ const ViewDetailsPodSystem = async ({
           <p className='text-lg font-bold '>
             LE {dataItem.data?.podSystem.price}.00
           </p>
-          <p className='mt-5 text-sm'>Color: {searchParams.color}</p>
-
           <Variations
             attribute={'color'}
             values={colors}
             dataItem={dataItem.data?.podSystem}
+            variantItem='Color'
           />
         </div>
       </div>

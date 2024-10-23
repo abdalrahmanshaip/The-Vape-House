@@ -42,11 +42,11 @@ const ViewDetailsCoilsCartidge = async ({
           <p className='text-lg font-bold '>
             LE {dataItem.data?.coildsCartidge.price}.00
           </p>
-          <p className='mt-5 text-sm'>Resistance: {searchParams.resistance}</p>
           <Variations
             attribute={'resistance'}
             values={resistance}
             dataItem={dataItem.data?.coildsCartidge}
+            variantItem='Resistance'
           />
         </div>
       </div>
